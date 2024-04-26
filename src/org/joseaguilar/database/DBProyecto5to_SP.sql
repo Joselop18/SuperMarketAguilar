@@ -276,8 +276,10 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_agregraTicketSoporte(desTic varchar (250), est varchar (30), in cliId int )
 BEGIN
-	insert into TicketSoporte(descripcionTicket, estatus, clienteId)values
-		(desTic, est, cliId);
+	select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus,
+			CONCAT('Id: ', C.clienteId, ' | ', C.nombre, ' ', C.apellido) AS 'cliente',
+            TS.facturaId from TicketSoporte TS
+    join Clientes C on TS.clienteId = C.clienteId;
 END $$
 DELIMITER ;
  
