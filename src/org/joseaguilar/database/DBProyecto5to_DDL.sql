@@ -1,15 +1,43 @@
--- drop database if exists DBProyecto5to_DDL;
+drop database if exists SuperKinalDB;
 
-create database if not exists DBProyecto5to_DDL;
+create database if not exists SuperKinalDB;
 
-use DBProyecto5to_DDL;
+use SuperKinalDB;
 
+create table Clientes(
+	clienteId int not null auto_increment,
+    nombre varchar (30) not null,
+    apellido varchar (30) not null,
+    telefono varchar (15),
+    direccion varchar (150) not null,
+    nit varchar (15),
+    primary key clienteId(clienteId)
+);
+ 
 create table Cargos(
 	cargoId int not null auto_increment,
     nombreCargo varchar(30) not null,
     descripcionCargo varchar(100) not null,
     primary key PK_cargoId (cargoId)
 );
+ 
+create table Compras(
+	compraId int not null auto_increment,
+    fechaCompra date not null,
+    totalCompra decimal(10, 2),
+    primary key compraId(compraId)
+);
+ 
+create table Distribuidores(
+	distribuidorId int not null auto_increment,
+    nombreDistribuidor varchar(30) not null,
+    direccionDistribuidor varchar(200) not null,
+    nitDistribuidor varchar(15),
+    telefonoDistribuidor varchar(15),
+    web varchar(50),
+    Primary key PK_distribuidorId(distribuidorId)
+);
+ 
 
 create table Empleados(
 	empleadoId int not null auto_increment,
@@ -21,42 +49,23 @@ create table Empleados(
     cargoId int not null,
     encargadoId int,
     primary key PK_empleadoId (empleadoId),
-    constraint FK_encargadoId foreign key Empleados(encargadoId)
+    constraint FK_encargadoId foreign key Emplados(encargadoId)
 		references Empleados(empleadoId),
-    constraint FK_Empleados_Cargos foreign key Cargos(cargoId)
+	constraint FK_Empleados_Cargos foreign key Cargos(cargoId)
 		references Cargos (cargoId)
 );
-
-create table Distribuidores(
-	distribuidorId int not null auto_increment,
-    nombreDistribuidor varchar(30) not null,
-    direccionDistribuidor varchar(200) not null,
-    nitDistribuidor varchar(15) not null,
-    telefonoDistribuidor varchar(15) not null,
-    web varchar(50),
-    primary key PK_distribuidorId (distribuidorId)
-);
-
 create table CategoriaProductos(
 	categoriaProductosId int not null auto_increment,
     nombreCategoria varchar(30) not null,
     descripcionCategoria varchar(100) not null,
     Primary key PK_categoriaProductosId(categoriaProductosId)
 );
-
-create table Compras(
-	compraId int not null auto_increment,
-    fechaCompra date not null,
-    totalCompra decimal(10, 2),
-    primary key compraId(compraId)
-);
-
 create table Productos(
 	productoId int not null auto_increment,
-    nombreProducto varchar(50) not null,
-    descripcionProducto varchar(100),
+    nombreProducto varchar(50),
+    descripcionProducto varchar(100) not null,
     cantidadStock int not null,
-    precioVentaUnitario decimal(10,2) not null,
+    precioVentaUnitario decimal(10, 2) not null,
     precioVentaMayor decimal(10, 2) not null,
     precioCompra decimal(10, 2) not null,
     imagenProducto blob,
@@ -68,55 +77,33 @@ create table Productos(
     constraint FK_Productos_CategoriaProductos foreign key CategoriaProductos(categoriaProductosId)
 		references CategoriaProductos (categoriaProductosId)
 );
-
-create table DetalleCompra(
+ 
+create table DetalleCompras(
 	detalleCompraId int not null auto_increment,
     cantidadCompra int not null,
     productoId int not null,
     compraId int not null,
-    primary key PK_detalleCompraId (detalleCompraId),
-    constraint FK_DetalleCompra_Productos foreign key (productoId)
+    Primary key PK_detalleCompraId(detalleCompraId),
+    constraint FK_DetalleCompras_Productos foreign key (productoId)
 		references Productos(productoId),
-	constraint FK_DetalleCompra_Compras foreign key (compraId)
+	constraint FK_DetalleCompras_Compras foreign key (compraId)
 		references Compras(compraId)
 );
-
-create table Promociones(
-	promocionId int not null auto_increment,
-    precioPromocion decimal (10,2) not null,
-    descripcionPromocion varchar (200),
-    fechaInicio date not null,
-    fechaFinalizacion date not null,
-    productoId int not null,
-    primary key PK_promocionId (promocionId),
-    constraint FK_Promociones_Productos foreign key Promociones(productoId)
-		references Productos (productoId)
-);
-
-create table Clientes(
-	clienteId int not null auto_increment,
-    nombre varchar(30) not null,
-    apellido varchar(30) not null,
-    telefono varchar(15),
-    direccion varchar(150) not null,
-    nit varchar(15),
-    primary key PK_clienteId (clienteId)
-);
-
+ 
 create table Facturas(
 	facturaId int not null auto_increment,
     fecha date not null,
-    hora time not null,
+    hora date not null,
     clienteId int not null,
     empleadoId int not null,
-    total decimal(10,2),
+    total decimal,
     primary key PK_facturaId (facturaId),
     constraint FK_Facturas_Clientes foreign key Clientes(clienteId)
 	references Clientes (clienteId),
     constraint FK_Facturas_Empleados foreign key Empleados(empleadoId)
 		references Empleados (empleadoId)
 );
-
+ 
 create table DetalleFactura(
 	detalleFacturaId int not null auto_increment,
     facturaId int not null,
@@ -127,17 +114,31 @@ create table DetalleFactura(
     constraint FK_DetalleFactura_Productos foreign key Productos(productoId)
 		references Productos(productoId)
 );
-
+ 
 create table TicketSoporte(
 	ticketSoporteId int not null auto_increment,
-    descripcionTicket varchar (250) not null,
-    estatus varchar (30) not null,
+    descripcionTicket varchar (250),
+    estatus varchar (30),
     clienteId int not null,
     facturaId int,
 	primary key PK_ticketSoporteId (ticketSoporteId),
-    constraint FK_TicketSoporte_ClienteS foreign key TicketSoporte(clienteId)
+    constraint FK_TicketSoporte_Clientes foreign key TicketSoporte(clienteId)
 		references Clientes (clienteId),
 	constraint FK_TicketSoporte_Facturas foreign key TicketSoporte(facturaId)
-		references Facturas (facturaId)
+		references Facturas(facturaId)
 );
-
+create table Promociones(
+	promocionId int not null auto_increment,
+    precioPromocion decimal (10,2),
+    descripcionPromocion varchar (200),
+    fechaInicio date,
+    fechaFinalizacion date,
+    productoId int not null,
+    primary key PK_promocionId (promocionId),
+    constraint FK_Promociones_Productos foreign key Promociones(productoId)
+		references Productos (productoId)
+);
+ 
+insert into Clientes(nombre, apellido, telefono, direccion, nit, clienteId) values
+	('Rene', 'Oxcal', '1111-1111', 'Su casa', '45-45874525', 1),
+    ('Jorge', 'Peralta', '2222-2222', 'Su casa', '45-45965215', 2);

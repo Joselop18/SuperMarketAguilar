@@ -1,7 +1,62 @@
-use DBProyecto5to_DDL;
+use SuperKinalDB;
 
--- ----------------- CRUD ----------------- --
--- ******** Cargos ******** --
+-- ----------------------- CLIENTES ----------------------------
+
+-- Agregar
+delimiter $$
+create procedure sp_agregarCliente(in nom varchar(40),in ape varchar(40),in tel varchar(15),in dir varchar(150),in nit varchar(15))
+	begin
+		insert into Clientes (nombre, apellido, telefono, direccion, nit) values
+			(nom, ape, tel, dir, nit);
+    end $$
+delimiter ;
+
+
+-- listar
+delimiter $$
+create procedure sp_listarCliente()
+	begin
+		select * from Clientes;
+    end $$
+delimiter ;
+
+
+-- buscar
+delimiter $$
+create procedure sp_buscarCliente(in cliId int)
+	begin
+		select * from Clientes
+			where clienteId = cliId;
+    end $$
+delimiter ;
+
+
+-- eliminar
+delimiter $$
+create procedure sp_eliminarCliente(in cliId int)
+	begin
+		delete from Clientes
+        where clienteId = cliId;
+    end $$
+delimiter ;
+
+-- editar
+delimiter $$
+create procedure sp_editarCliente(in cliId int, in nom varchar(40),in ape varchar(40),in tel varchar(15),in dir varchar(150),in nit varchar(15))
+	begin
+		update Clientes
+			set 
+            nombre = nom,
+            apellido = ape,
+            telefono = tel,
+            direccion = dir, 
+            nit = nit
+            where clienteId = cliId;
+    end $$
+delimiter ;
+
+-- ==========================================================================================================================================================================
+-- *** Cargos *** --
 DELIMITER $$
 create procedure sp_agregarCargo(nomCar varchar(30), desCar varchar(100))
 BEGIN
@@ -9,8 +64,6 @@ BEGIN
 		(nomCar, desCar);
 END $$
 DELIMITER ;
-
--- call sp_agregarCargo('Carga','de medio timepo');
 
 DELIMITER $$
 create procedure sp_listarCargo()
@@ -22,8 +75,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- call sp_listarCargo();
-
 DELIMITER $$
 create procedure sp_eliminarCargo(carId INT)
 BEGIN
@@ -32,8 +83,6 @@ BEGIN
 		where cargoId = carId;
 END $$
 DELIMITER ;
-
- -- call sp_eliminarCargo(1);
 
 DELIMITER $$
 create procedure sp_buscarCargo(carId INT)
@@ -46,8 +95,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- call sp_buscarCargo(1);
-
 DELIMITER $$
 create procedure sp_editarCargo(carId INT, nomCar varchar(30), desCar varchar(100))
 BEGIN
@@ -59,10 +106,116 @@ BEGIN
 END $$
 DELIMITER ;
 
--- call sp_editarCargo (1, 'XXXX', 'XXXXXXXXXX');
+-- ==========================================================================================================================================================================
+-- --------------------------------------------------------Compras-------------------------------------------------------------------- 
 
+-- agregar
+delimiter $$
+create procedure sp_agregarCompra(in fecCom date, in totCom decimal (10,2))
+	begin 
+		insert into Compras (fechaCompra, totalCompra) values
+			(fecCom, totCom);
+    end $$
+delimiter ;
 
--- ******** Empleados ******** --
+-- listar
+delimiter $$
+create procedure sp_listarCompra()
+	begin
+		select * from Compras;
+    end $$
+delimiter ;
+
+-- buscar
+delimiter $$
+create procedure sp_buscarCompra(in comId int)
+	begin	
+		select * from Compras 
+			where compraId = comId;
+    end $$
+delimiter ;
+
+-- eliminar 
+delimiter $$
+create procedure sp_eliminarCompra(in comId int)
+	begin 
+		delete from Compras
+        where compraId = comId;
+    end $$
+delimiter ;
+
+-- editar
+delimiter $$
+create procedure sp_editarCompra(in comId int,in fecCom date,in totCom decimal (10,2))
+	begin 
+		update Compras
+			set 
+				fechaCompra = fecCom,
+                totalCompra = totCom
+                where compraId = comId;
+    end $$
+delimiter ;
+
+-- ==========================================================================================================================================================================
+-- Agregar
+delimiter $$
+create procedure sp_agregarDistribuidor(in nomD varchar(30), in dirD varchar(200), in nitD varchar(15), in telD varchar(15), in web varchar(50))
+	begin
+		insert into Distribuidores(nombreDistribuidor, direccionDistribuidor, nitDistribuidor, telefonoDistribuidor, web) values
+			(nomD, dirD, nitD, telD, web);
+    end $$
+delimiter ;
+
+-- Listar
+delimiter $$
+create procedure sp_listarDistribuidor()
+	begin
+		select
+			D.distribuidorId,
+			D.nombreDistribuidor,
+			D.direccionDistribuidor,
+			D.nitDistribuidor,
+			D.telefonoDistribuidor,
+			D.web
+				from Distribuidores D;
+    end $$
+delimiter ;
+
+-- Buscar
+delimiter $$
+create procedure sp_buscarDistribuidor(in disId int)
+	begin
+		select * from Distribuidores
+			where distribuidorId = disId;
+    end $$
+delimiter ;
+
+-- Eliminar
+delimiter $$
+create procedure sp_eliminarDistribuidor(in disId int)
+	begin
+		delete
+			from Distribuidores
+				where distribuidorId = disId;
+    end $$
+delimiter ;
+
+-- Editar
+delimiter $$
+create procedure sp_editarDistribuidor(in disId int, in nomD varchar(30), in dirD varchar(200), in nitD varchar(15), in telD varchar(15), in web varchar(50))
+	begin
+		update Distribuidores
+			set
+				nombreDistribuidor = nomD,
+                direccionDistribuidor = dirD,
+                nitDistribuidor = nitD,
+                telefonoDistribuidor = telD,
+                web = web
+					where distribuidorId = disId;
+    end $$
+delimiter ;
+
+-- *** Empleados *** --
 DELIMITER $$
 create procedure sp_agregarEmpleado(nomEmp varchar(30), apeEmp varchar(30), sue decimal(10,2), horEnt time, horSal time, carId int)
 BEGIN
@@ -70,8 +223,6 @@ BEGIN
 		(nomEmp, apeEmp, sue, horEnt, horSal, carId);
 END $$
 DELIMITER ;
-
--- CALL sp_agregarEmpleado('Manuel', 'Pérez', 2500.00, '09:00:00', '18:00:00', 2 );
 
 DELIMITER $$
 create procedure sp_listarEmpleado()
@@ -88,8 +239,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- call sp_listarEmpleado();
-
 DELIMITER $$
 create procedure sp_eliminarEmpleado(empId INT)
 BEGIN
@@ -98,8 +247,6 @@ BEGIN
         where empleadoId = empId;
 END $$
 DELIMITER ;
-
--- call sp_eliminarEmpleado(3);
 
 DELIMITER $$
 create procedure sp_buscarEmpleado(empId INT)
@@ -117,8 +264,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- call sp_buscarEmpleado(1);
-
 DELIMITER $$
 create procedure sp_editarEmpleado(empId INT, nomEmp varchar(30), apeEmp varchar(30), sue decimal(10,2), horEnt time, horSal time, carId int, encId int)
 BEGIN
@@ -135,78 +280,179 @@ BEGIN
 END $$
 DELIMITER ;
 
--- call sp_editarEmpleado (2, 'pete', 'chunza', 100.90, '01:00:00' , '09:00:00', 3,2);
+-- ==========================================================================================================================================================================
+-- 2
+-- =====================================================================================================================
+-- Agregar
+delimiter $$
+create procedure sp_agregarCategoriaProducto(in nombC varchar(30), descC varchar(100))
+	begin
+		insert into CategoriaProductos(nombreCategoria, descripcionCategoria) values
+			(nombC, descC);
+    end $$
+delimiter ;
 
--- ******** Clientes ******** --
-DELIMITER $$
-create procedure sp_agregarCliente(in nom varchar(40),in ape varchar(40),in tel varchar(15),in dir varchar(150),in nit_ varchar(15))
-BEGIN
-	insert into Clientes (nombre, apellido, telefono, direccion, nit) values
-		(nom, ape, tel, dir, nit_);
-END $$
-DELIMITER ;
+-- Listar
+delimiter $$
+create procedure sp_listarCategoriaProducto()
+	begin
+		select
+			C.categoriaProductoId,
+            C.nombreCategoria,
+            C.descripcionCategoria
+				from CategoriaProductos C;
+    end $$
+delimiter ;
 
--- call sp_agregarCliente('Joshua', 'ok', '2023245', 'zona 1 7-12212', '20233356');
+-- Buscar
+delimiter $$
+create procedure sp_buscarCategoriaProducto(in catPId int)
+	begin
+		select * from CategoriaProductos
+			where categoriaProductoId = catPId;
+    end $$
+delimiter ;
 
-DELIMITER $$
-create procedure sp_listarCliente()
-BEGIN
-	select
-		Clientes.nombre,
-        Clientes.apellido,
-        Clientes.telefono,
-        Clientes.direccion,
-        Clientes.nit
-        from Clientes;
-END $$
-DELIMITER ;
+-- Eliminar
+delimiter $$
+create procedure sp_eliminarCategoriaProducto(in catPId int)
+	begin
+		delete
+			from CategoriaProductos
+				where categoriaProductoId = catPId;
+    end $$
+delimiter ;
 
--- call sp_listarCliente();
+-- Editar
+delimiter $$
+create procedure sp_editarCategoriaProducto(in catPId int, in nombC varchar(30), in descC varchar(100))
+	begin
+		update CategoriaProductos
+			set
+				nombreCategoria = nombC,
+                descripcionCategoria = descC
+					where categoriaProductoId = catPId;
+    end $$
+delimiter ;
 
-DELIMITER $$
-create procedure sp_buscarCliente(cliId int)
-BEGIN
-	select
-		Clientes.nombre,
-        Clientes.apellido,
-        Clientes.telefono,
-        Clientes.direccion,
-        Clientes.nit
-        from Clientes
-		where clienteId = cliId;
-END $$
-DELIMITER ;
+-- ==========================================================================================================================================================================
+-- ------------------------------------------------------Productos-------------------------------------------------------------------
 
--- call sp_buscarCliente(1);
+-- agregar
+delimiter $$
+create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int)
+	begin
+		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId ) values
+			(nom, des, can, preU, preM, preC, ima, disId, catId);
+	end $$
+delimiter ;
 
-DELIMITER $$
-create procedure sp_eliminarCliente(in cliId int)
-BEGIN
-	delete 
-		from Clientes
-		where clienteId = cliId;
-END $$
-DELIMITER ;
+-- listar
+delimiter $$
+create procedure sp_listarProducto()
+	begin 
+		select * from Productos;
+    end $$
+delimiter ;
 
--- call sp_eliminarCliente(2);
+-- buscar
+delimiter $$
+create procedure sp_buscarProducto(in proId int)
+	begin 
+		select * from Productos
+        where productoId = proId;
+    end $$
+delimiter ;
 
-DELIMITER $$
-create procedure sp_editarCliente(in cliId int, in nom varchar(40),in ape varchar(40),in tel varchar(15),in dir varchar(150),in nit varchar(15))
-BEGIN
-	update Clientes
-		set 
-		nombre = nom,
-		apellido = ape,
-		telefono = tel,
-		direccion = dir, 
-		nit = nit
-		where clienteId = cliId;
-END $$
-DELIMITER ;
+-- eliminar 
+delimiter $$
+create procedure sp_eliminarProducto(in proId int)
+	begin
+		delete from Productos
+			where productoId = proId;
+    end $$
+delimiter ;
 
--- CALL sp_editarCliente(1,'Jos', 'o', '202345', 'zona  7-12212', '202356');
+-- editar
+delimiter $$
+create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int )
+	begin
+		update Productos	
+			set 
+            nombreProducto = nom,
+            descripcionProduto = des,
+            cantidadStock = can,
+            precioVentaUnitario = preU,
+            precioVentaMayor = preM,
+            precioCompra = preC,
+            imagenProducto = ima,
+            distribuidorId = disId,
+            categoriaProductosId = catId
+            where productoId = proId;
+    end $$
+delimiter ;
 
--- ******** Facturas ******** --
+-- ==========================================================================================================================================================================
+
+-- 3
+-- ===========================================================================================================
+-- Agregar
+delimiter $$
+create procedure sp_agregarDetalleCompra(in canC int, in proId int, in comId int)
+	begin
+		insert into DetalleCompras(cantidadCompra, productoId, compraId) values
+			(canC, proId, comId);
+    end $$
+delimiter ;
+
+-- listar
+delimiter $$
+create procedure sp_listarDetalleCompra()
+	begin
+		select
+			D.detalleCompraId,
+            D.cantidadCompra,
+            D.productoId,
+            D.compraId
+				from DetalleCompras D;
+    end $$
+delimiter ;
+
+-- Buscar
+delimiter $$
+create procedure sp_buscarDetalleCompra(in detCId int)
+	begin
+		select * from DetalleCompras
+				where detalleCompraId = detCId;
+    end $$
+delimiter ;
+
+-- Eliminar
+delimiter $$
+create procedure sp_eliminarDetalleCompra(in detCId int)
+	begin
+		delete
+			from DetalleCompras
+				where detalleCompraId = detCId;
+    end $$
+delimiter ;
+
+-- Editar
+delimiter $$
+create procedure sp_editarDetalleCompra(in detCId int, in canC int, in proId int, in comId int)
+	begin
+		update DetalleCompras
+			set
+				cantidadCompra = canC,
+                productoId = proId,
+                compraId = comId
+					where detalleCompraId = detCId;
+    end $$
+delimiter ;
+
+-- ==========================================================================================================================================================================
+
+-- *** Facturas *** --
 DELIMITER $$
 create procedure sp_agregarFactura(fec date, hor time, cliId int, empId int)
 BEGIN
@@ -214,8 +460,6 @@ BEGIN
 		(fec, hor, cliId, empId);
 END $$
 DELIMITER ;
-
--- call sp_agregarFactura('2024-04-21', '08:30:00', 2, 4);
 
 DELIMITER $$
 create procedure sp_listarFactura()
@@ -229,8 +473,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-call sp_listarFactura();
-
 DELIMITER $$
 create procedure sp_eliminarFactura(facId INT)
 BEGIN
@@ -239,8 +481,6 @@ BEGIN
 		where facturaId = facId;
 END $$
 DELIMITER ;
-
--- call sp_eliminarFactura(3);
 
 DELIMITER $$
 create procedure sp_buscarFactura(in facId INT)
@@ -255,8 +495,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- call sp_buscarFactura(6);
-
 DELIMITER $$
 create procedure sp_editarFactura(facId INT,fec date, hor time, cliId int, empId int)
 BEGIN
@@ -270,529 +508,218 @@ BEGIN
 END $$
 DELIMITER ;
 
---  call sp_editarFactura (6,'2024-04-10', '01:30:00', 2, 4);
+-- ==========================================================================================================================================================================
 
--- ******** TicketSoporte ******** --
+-- ------------------ Detalle Factura ---------------------------
 DELIMITER $$
-create procedure sp_agregraTicketSoporte(desTic varchar (250), est varchar (30), in cliId int )
-BEGIN
-	select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus,
-			CONCAT('Id: ', C.clienteId, ' | ', C.nombre, ' ', C.apellido) AS 'cliente',
-            TS.facturaId from TicketSoporte TS
-    join Clientes C on TS.clienteId = C.clienteId;
-END $$
-DELIMITER ;
- 
--- call sp_agregraTicketSoporte('Arrababasay', 'En tramite', 4);
-
-DELIMITER $$
-create procedure sp_listarTicketSoporte()
-BEGIN
-	select
-		TicketSoporte.ticketSoporteId,
-		TicketSoporte.descripcionTicket,
-		TicketSoporte.estatus,
-		TicketSoporte.clienteId
-		FROM TicketSoporte;
-END $$
-DELIMITER ;
- 
--- call sp_listarTicketSoporte();
-
-DELIMITER $$
-create procedure sp_eliminarTicketSoporte(in ticId int)
-BEGIN
-	delete
-		from TicketSoporte
-		where ticketSoporteId = ticId;
-END $$
-DELIMITER ;
- 
---  call sp_eliminarTicketSoporte(3);
-
-DELIMITER $$
-create procedure sp_buscarTicketSoporte(in ticId int)
-BEGIN
-	select
-		TicketSoporte.ticketSoporteId,
-		TicketSoporte.descripcionTicket,
-		TicketSoporte.estatus,
-		TicketSoporte.clienteId
-			from TicketSoporte
-			where ticketSoporteId = ticId;
-END $$
-DELIMITER ;
- 
--- call sp_buscarTicketSoporte(2);
-
-DELIMITER $$
-create procedure sp_editarTicketSoporte(in ticId int, des varchar (250), est varchar (30), in cliId int )
-BEGIN
-	update TicketSoporte
-		set
-			descripcionTicket = des,
-			estatus = est,
-			clienteId = cliId
-			where ticketSoporteId = ticId;
-END $$
-DELIMITER ;
- 
--- call sp_editarTicketSoporte(2, 'Jonathan malo', 'Perdido', 1);
-
--- *********** Distribuidores ************ --
-DELIMITER $$
-create procedure sp_agregarDistribuidor( nomDis varchar(30), dirDis varchar(200), nitDis varchar(15), telDis varchar(15))
-BEGIN
-	insert into Distribuidores(nombreDistribuidor, direccionDistribuidor, nitDistribuidor, telefonoDistribuidor) values
-		(nomDis, dirDis, nitDis, telDis);
-END $$
-DELIMITER ;
-
--- call sp_agregarDistribuidor('Karen', '6av 6-14', '2023365', '20233325');
-
-DELIMITER $$
-create procedure sp_listarDistribuidor()
-BEGIN
-	select
-		Distribuidores.distribuidorId,
-		Distribuidores.nombreDistribuidor,
-		Distribuidores.direccionDistribuidor,
-		Distribuidores.nitDistribuidor,
-		Distribuidores.telefonoDistribuidor
-		from Distribuidores;
-    END $$
-DELIMITER ;
-
--- call sp_listarDistribuidor();
-
-DELIMITER $$
-create procedure sp_buscarDistribuidor(in disId int)
-BEGIN
-	select
-		Distribuidores.distribuidorId,
-		Distribuidores.nombreDistribuidor,
-		Distribuidores.direccionDistribuidor,
-		Distribuidores.nitDistribuidor,
-		Distribuidores.telefonoDistribuidor
-		from Distribuidores
-		where distribuidorId = disId;
-END $$
-DELIMITER ;
-
--- call sp_buscarDistribuidor(1);
-
-DELIMITER $$
-create procedure sp_eliminarDistribuidor(in disId int)
-BEGIN
-	delete
-		from Distribuidores
-			where distribuidorId = disId;
-END $$
-DELIMITER ;
-
--- call sp_eliminarDistribuidor(8);
-
-DELIMITER $$
-create procedure sp_editarDistribuidor(in disId int, in nomDis varchar(30), in dirDis varchar(200), in nitDis varchar(15), in telDis varchar(15), in web varchar(50))
-BEGIN
-	update Distribuidores
-		set
-			nombreDistribuidor = nomDis,
-			direccionDistribuidor = dirDis,
-			nitDistribuidor = nitDis,
-			telefonoDistribuidor = telDis,
-			web = web
-				where distribuidorId = disId;
-    END $$
-DELIMITER ;
-
--- call sp_editarDistribuidor(1,'Brandon', '5florida', '666666' , '9999999', 'WEB');
-
--- *********** Categoria Productos *********** --
-DELIMITER $$
-create procedure sp_agregarCategoriaProducto(nombCat varchar(30), desCat varchar(100))
-BEGIN
-	insert into CategoriaProductos(nombreCategoria, descripcionCategoria) values
-		(nombCat, desCat);
-END $$
-DELIMITER ;
-
--- call sp_agregarCategoriaProducto('Azucares' , 'es dulce');
-
-DELIMITER $$
-create procedure sp_listarCategoriaProducto()
-	BEGIN
-		select
-			CategoriaProductos.categoriaProductosId,
-            CategoriaProductos.nombreCategoria,
-            CategoriaProductos.descripcionCategoria
-				from CategoriaProductos;
-    END $$
-DELIMITER ;
-
--- call sp_listarCategoriaProducto();
-
-DELIMITER $$
-create procedure sp_buscarCategoriaProducto(in catPId int)
-BEGIN
-	select 
-		CategoriaProductos.categoriaProductosId,
-		CategoriaProductos.nombreCategoria,
-		CategoriaProductos.descripcionCategoria
-			from CategoriaProductos
-			where categoriaProductosId = catPId;
-END $$            
-DELIMITER ;
-
--- call sp_buscarCategoriaProducto(1);
-
-DELIMITER $$
-create procedure sp_eliminarCategoriaProducto(in catPId int)
-BEGIN
-	delete
-		from CategoriaProductos
-			where categoriaProductosId = catPId;
-END $$
-DELIMITER ;
-
--- call sp_eliminarCategoriaProducto(5);
-
-
-DELIMITER $$
-create procedure sp_editarCategoriaProducto(in catPId int, in nombCat varchar(30), in desCat varchar(100))
-BEGIN
-	update CategoriaProductos
-		set
-			nombreCategoria = nombCat,
-			descripcionCategoria = desCat
-				where categoriaProductosId = catPId;
-END $$
-DELIMITER ;
-
--- call sp_editarCategoriaProducto(1, 'ponche' , 'es dulce');
-
--- --- ************** Productos *************** --
-DELIMITER $$
-create procedure sp_agregarProducto(in nomPro varchar(50),in desPro varchar(100),in canSto int, in preVenUni decimal(10,2),in preVenMay decimal(10,2),in preCom decimal(10,2), in disId int, in catProId int)
-BEGIN
-	insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, distribuidorId, categoriaProductosId ) values
-		(nomPro, desPro, canSto, preVenUni, preVenMay, preCom, disId, catProId);
-END $$
-DELIMITER ;
-
--- call sp_agregarProducto('Cereal', 'Es comestible', 50, 50.15, 60.20, 55.90, 1,1);
-
-DELIMITER $$
-create procedure sp_listarProducto()
-BEGIN 
-	select
-			Productos.nombreProducto,
-            Productos.descripcionProducto,
-            Productos.cantidadStock,
-            Productos.precioVentaUnitario,
-            Productos.precioVentaMayor,
-            Productos.precioCompra,
-            Productos.imagenProducto,
-            Productos.distribuidorId,
-            Productos.categoriaProductosId
-				from Productos;
-END $$
-DELIMITER ;
-
--- call sp_listarProducto();
-
-DELIMITER $$
-create procedure sp_buscarProducto(in proId int)
-BEGIN 
-	select
-			Productos.nombreProducto,
-            Productos.descripcionProducto,
-            Productos.cantidadStock,
-            Productos.precioVentaUnitario,
-            Productos.precioVentaMayor,
-            Productos.precioCompra,
-            Productos.imagenProducto,
-            Productos.distribuidorId,
-            Productos.categoriaProductosId
-            from Productos
-			where productoId = proId;
-END $$
-DELIMITER ;
-
--- call sp_buscarProducto(1);
-
-DELIMITER $$
-create procedure sp_eliminarProducto(in proId int)
-BEGIN
-	delete from Productos
-		where productoId = proId;
-END $$
-DELIMITER ;
-
--- call sp_eliminarProducto(4);
-
-DELIMITER $$
-create procedure sp_editarProducto(in proId int,in nomPro varchar(50),in desPro varchar(100),in canSto int, in preVenUni decimal(10,2),in preVenMay decimal(10,2),in preCom decimal(10,2), in disId int, in catProId int)
-BEGIN
-	update Productos	
-		set 
-		nombreProducto = nomPro,
-		descripcionProducto = desPro,
-		cantidadStock = canSto,
-		precioVentaUnitario = preVenUni,
-		precioVentaMayor = preVenMay,
-		precioCompra = preCom,
-		distribuidorId = disId,
-		categoriaProductosId = catProId
-		where productoId = proId;
-END $$
-DELIMITER ;
-
--- call sp_editarProducto(1,'Ojuelas', 'Es comestible', 50, 50.15, 60.20, 55.90, 1,1);
-
--- *********** Compras ************** --
-DELIMITER $$
-create procedure sp_agregarCompra(in fecCom date, in totCom decimal (10,2))
-BEGIN 
-	insert into Compras (fechaCompra, totalCompra) values
-		(fecCom, totCom);
-END $$
-DELIMITER ;
-
--- call sp_agregarCompra('2024-04-10', 500.00);
-
-DELIMITER $$
-create procedure sp_listarCompra()
-BEGIN
-	select * from Compras;
-END $$
-DELIMITER ;
-
--- call sp_listarCompra();
-
-DELIMITER $$
-create procedure sp_buscarCompra(in comId int)
-BEGIN	
-	select * from Compras 
-		where compraId = comId;
-END $$
-DELIMITER ;
-
--- call sp_buscarCompra(1);
-
-DELIMITER $$
-create procedure sp_eliminarCompra(in comId int)
-BEGIN 
-	delete from Compras
-	where compraId = comId;
-END $$
-DELIMITER ;
-
--- call sp_eliminarCompra(3);
-
-DELIMITER $$
-create procedure sp_editarCompra(in comId int,in fecCom date,in totCom decimal (10,2))
-BEGIN 
-	update Compras
-		set 
-			fechaCompra = fecCom,
-			totalCompra = totCom
-			where compraId = comId;
-END $$
-DELIMITER ;
-
--- call sp_editarCompra(2,'2022-01-10', 100.00);
-
-
--- *********** DetalleProductos ********** --
-DELIMITER $$
-create procedure sp_agregarDetalleCompra(in canCom int, in proId int, in comId int)
-BEGIN
-	insert into DetalleCompra(cantidadCompra, productoId, compraId) values
-		(canCom, proId, comId);
-END $$
-DELIMITER ;
-
--- call sp_agregarDetalleCompra(100,1,1);
-
-DELIMITER $$
-create procedure sp_listarDetalleCompra()
-BEGIN
-	select
-		D.detalleCompraId,
-		D.cantidadCompra,
-		D.productoId,
-		D.compraId
-			from DetalleCompra D;
-END $$
-DELIMITER ;
-
--- call sp_listarDetalleCompra();
-
-DELIMITER $$
-create procedure sp_buscarDetalleCompra(in detCId int)
-BEGIN
-	select * from DetalleCompra
-			where detalleCompraId = detCId;
-END $$
-DELIMITER ;
-
--- call sp_buscarDetalleCompra(1);
-
-DELIMITER $$
-create procedure sp_eliminarDetalleCompra(in detCId int)
-BEGIN
-	delete
-		from DetalleCompra
-			where detalleCompraId = detCId;
-END $$
-DELIMITER ;
-
--- call sp_eliminarDetalleCompra(3);
-
-DELIMITER $$
-create procedure sp_editarDetalleCompra(in detCId int, in canCom int, in proId int, in comId int)
-BEGIN
-	update DetalleCompra
-		set
-			cantidadCompra = canCom,
-			productoId = proId,
-			compraId = comId
-				where detalleCompraId = detCId;
-END $$
-DELIMITER ;
-
--- call sp_editarDetalleCompra(2,100,1,2);
-
--- ***************** Promociones ****************** --
-DELIMITER $$
-create procedure sp_agregarPromociones(prePro decimal (10,2), desPro varchar (200), fecIni date, fecFin date, in proId int)
-BEGIN
-	insert into Promociones(precioPromocion, descripcionPromocion, fechaInicio, fechaFinalizacion, productoId )values
-		(prePro,desPro, fecIni, fecFin, proId);
-END $$
-DELIMITER ;
- 
--- call sp_agregarPromociones(600, 'Es 2x1 aproveche', '2024-04-23','2024-04-29',1);
- 
-DELIMITER $$
-create procedure sp_listarPromociones()
-BEGIN
-	select
-		Promociones.promocionId,
-		Promociones.precioPromocion,
-		Promociones.fechaInicio,
-		Promociones.fechaFinalizacion,
-		Promociones.productoId
-			FROM Promociones;
-END $$
-DELIMITER ;
- 
--- call sp_listarPromociones();
- 
-DELIMITER $$
-create procedure sp_eliminarPromociones(in proId int)
-BEGIN
-	delete
-		from Promociones
-		where promocionId = proId;
-END $$
-DELIMITER ;
-
--- call sp_eliminarPromociones(3);
- 
-DELIMITER $$
-create procedure sp_buscarPromociones(in proId int)
-BEGIN
-	select
-		Promociones.promocionId,
-		Promociones.precioPromocion,
-		Promociones.descripcionPromocion,
-		Promociones.fechaInicio,
-		Promociones.fechaFinalizacion,
-		Promociones.productoId
-			from Promociones
-			where promocionId = proId;
-END $$
-DELIMITER ;
-
--- call sp_buscarPromociones(2);
- 
-DELIMITER $$
-create procedure sp_editarPromociones(in promId int, prePro decimal (10,2), desPro varchar (200), fecIni date, fecFin date, in proId int )
-BEGIn
-	update Promociones
-		set
-			precioPromocion = prePro,
-			descripcionPromocion = desPro,
-			fechaInicio = fecIni,
-			fechaFinalizacion = fecFin,
-			productoId = proId
-			where promocionId = promId;
-END $$
-DELIMITER ;
-
--- call sp_editarPromociones(2, 200, 'Es 4*1 apro', '2024-04-19','2024-04-25',1);
-
--- ******************* DetalleFacturas ************* --
-
-DELIMITER $$
-create procedure sp_agregarDetalleFactura(in factId int, in prodId int)
-BEGIN
+create procedure sp_AgregarDetalleFactura(in factId int, in prodId int)
+begin
 	insert into DetalleFactura(facturaId, productoId) values
 		(factId, prodId);
-END $$
+end $$
 DELIMITER ;
-
--- call sp_agregarDetalleFactura(1,1);
-
+ 
 DELIMITER $$
-create procedure sp_listarDetalleFactura()
-BEGIN
+create procedure sp_ListarDetalleFactura()
+begin
 	select 
 		DetalleFactura.detalleFacturaId,
         DetalleFactura.facturaId,
         DetalleFactura.productoId
 			from DetalleFactura;
-END $$
+end $$
 DELIMITER ;
-
--- call sp_listarDetalleFactura();
-
+ 
 DELIMITER $$
-create procedure sp_eliminarDetalleFactura(in detId int)
-BEGIN
+create procedure sp_EliminarDetalleFactura(in detId int)
+begin
 	delete
 		from DetalleFactura
 			where detalleFacturaId = detId;
-END $$
+end $$
 DELIMITER ;
-
--- call sp_eliminarDetalleFactura(2);
-
+ 
 DELIMITER $$
-create procedure sp_buscarDetalleFactura(in detId int)
-BEGIN
+create procedure sp_BuscarDetalleFactura(in detId int)
+begin
 	select 
 		DetalleFactura.detalleFacturaId,
         DetalleFactura.facturaId,
         DetalleFactura.productoId
 			from DetalleFactura
 			where detalleFacturaId = detId;
-END $$
+end $$
 DELIMITER ;
-
--- call sp_buscarDetalleFactura(1);
-
+ 
 DELIMITER $$
-create procedure sp_editarDetalleFactura(in detId int, in factId int, in prodId int)
-BEGIN
+create procedure sp_EditarDetalleFactura(in detId int, in factId int, in prodId int)
+begin
 	update DetalleFactura
 		set 
 			facturaId = factId,
             productoId = prodId
             where detalleFacturaId = detId;
-END $$
+end $$
 DELIMITER ;
 
--- call sp_editarDetalleFactura(1,2,1);
+-- ==========================================================================================================================================================================
+
+-- AGREGAR TIKETSOPORTE
+DELIMITER $$
+create procedure sp_agregarTicketSoporte(des varchar (250), in cliId int,in facId int )
+	BEGIN
+		insert into TicketSoporte(descripcionTicket, estatus, clienteId, facturaId)values
+			(des, 'Recien Creado', cliId, facId);
+	END $$
+DELIMITER ;
+ 
+-- call sp_agregraTiketSoporte('Arrababasay', 'En tramite', 2);
+ 
+-- listar TIKETSOPORTE
+DELIMITER $$
+create procedure sp_listarTicketSoporte()
+	BEGIN
+		select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus,
+			CONCAT('ID: ',C.clienteId, '|' , C.nombre, ' ' , C.apellido) AS 'cliente',
+			TS.facturaId from TicketSoporte TS
+        join Clientes C on TS.clienteId = C.clienteId;
+	END $$
+DELIMITER ;
+ 
+-- call sp_listarTiketSoporte();
+ 
+-- Eliminar TIKETSOPORTE
+DELIMITER $$
+create procedure sp_eliminarTicketSoporte(in ticId int)
+	BEGIN
+		delete
+			from TicketSoporte
+				where ticketSoporteId = ticId;
+	END $$
+DELIMITER ;
+ 
+-- call sp_eliminarTiketSoporte(1);
+ 
+-- Buscar TIKETSOPORTE
+DELIMITER $$
+create procedure sp_buscarTicketSoporte(in ticId int)
+	BEGIN
+		select
+			TicketSoporte.ticketSoporteId,
+			TicketSoporte.descripcionTicket,
+			TicketSoporte.estatus,
+			TicketSoporte.clienteId
+				from TicketSoporte
+					where ticketSoporteId = ticId;
+	END $$
+DELIMITER  ;
+ 
+-- call sp_buscarTiketSoporte(2);
+ 
+-- Editar TIKETSOPORTE
+DELIMITER $$
+create procedure sp_editarTicketSoporte(in ticId int, des varchar (250), est varchar (30), in cliId int )
+	BEGIN
+		update TicketSoporte
+			set
+				descripcionTicket = des,
+				estatus = est,
+				clienteId = cliId
+					where ticketSoporteId = ticId;
+	END $$
+DELIMITER ;
+ 
+-- call sp_editarTiketSoporte(2, 'Jonathan malo', 'Perdido', 1);
+-- ------------------------------------------------------------------------------------------------------
+
+-- ==========================================================================================================================================================================
+
+-- Agregar Promociones
+DELIMITER $$
+create procedure sp_agregarPromociones(pre decimal (10,2), des varchar (200), fecI date, fecF date, in proId int)
+	BEGIN
+		insert into Promociones(precioPromocion, descripcionPromocion, fechaInicio, fechaFinalizacion, productoId )values
+			(pre,des, fecI, fecF, proId);
+	END $$
+DELIMITER ;
+ 
+-- call sp_agregarPromociones();
+ 
+-- Listar Promociones
+DELIMITER $$
+create procedure sp_listarPromociones()
+	begin
+		select
+			Promociones.promocionId,
+			Promociones.precioPromocion,
+			Promociones.fechaInicio,
+			Promociones.fechaFinalizacion,
+			Promociones.productoId
+				from Promociones;
+ 
+	end $$
+DELIMITER ;
+ 
+-- call sp_listarPromociones();
+ 
+-- Eliminar Promociones
+DELIMITER $$
+create procedure sp_eliminarPromociones(in proId int)
+	BEGIN
+		delete
+			from Promociones
+				where promocionId = proId;
+	END $$
+DELIMITER ;
+-- call sp_eliminarPromociones();
+ 
+-- Buscar Promociones
+DELIMITER $$
+create procedure sp_buscarPromociones(in proId int)
+	BEGIN
+		select
+			Promociones.promocionId,
+			Promociones.precioPromocion,
+			Promociones.descripcionPromocion,
+			Promociones.fechaInicio,
+			Promociones.fechaFinalizacion,
+			Promociones.productoId
+				from Promociones
+					where promocionId = proId;
+	END $$
+DELIMITER  ;
+-- call sp_buscarPromociones()
+ 
+-- Editar Promociones
+DELIMITER $$
+create procedure sp_editarPromociones(in promId int, pre decimal (10,2), des varchar (200), fecI date, fecF date, in proId int )
+	BEGIN
+		update Promociones
+			set
+				precioPromocion = pre,
+				descripcionPromocion = des,
+				fechaInicio = fecI,
+				fechFinalizacion = fecF,
+				profuctoId = proId
+					where promocionId = promId;
+	END $$
+DELIMITER ;
+-- call sp_editarPromociones();
+
+-- ==========================================================================================================================================================================-- ==========================================================================================================================================================================
+-- ***************** Asignar Encargado **********************
+ 
+DELIMITER $$
+create procedure sp_editarEncargado(empId int, encId int)
+	BEGIN
+		update Empleados
+			set
+				encargadoId = encId
+					where empleadoId = empId;
+	END $$
+DELIMITER ;
+
+
+ 
+ 
+set global time_zone = '-6:00';
