@@ -56,6 +56,7 @@ create procedure sp_editarCliente(in cliId int, in nom varchar(40),in ape varcha
 delimiter ;
 
 -- ==========================================================================================================================================================================
+
 -- *** Cargos *** --
 DELIMITER $$
 create procedure sp_agregarCargo(nomCar varchar(30), desCar varchar(100))

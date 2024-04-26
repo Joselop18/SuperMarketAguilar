@@ -1,4 +1,4 @@
-drop database if exists SuperKinalDB;
+-- drop database if exists SuperKinalDB;
 
 create database if not exists SuperKinalDB;
 
