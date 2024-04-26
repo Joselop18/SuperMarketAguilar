@@ -1,6 +1,5 @@
 package org.joseaguilar.model;
 
-
 public class Cliente {
     private int clienteId;
     private String nombre;
