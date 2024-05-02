@@ -580,13 +580,13 @@ DELIMITER $$
 create procedure sp_listarTicketSoporte()
 	BEGIN
 		select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus,
-			CONCAT('ID: ',C.clienteId, '|' , C.nombre, ' ' , C.apellido) AS 'cliente',
+			CONCAT('ID: ',C.clienteId, '| ' , C.nombre, ' ' , C.apellido) AS 'cliente',
 			TS.facturaId from TicketSoporte TS
         join Clientes C on TS.clienteId = C.clienteId;
 	END $$
 DELIMITER ;
  
--- call sp_listarTiketSoporte();
+-- call sp_listarTicketSoporte();
  
 -- Eliminar TIKETSOPORTE
 DELIMITER $$

@@ -14,8 +14,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.model.Cliente;
+import org.joseaguilar.model.TicketSoporte;
 import org.joseaguilar.system.Main;
 
 public class MenuTicketSoporteController implements Initializable {
@@ -29,6 +33,10 @@ public class MenuTicketSoporteController implements Initializable {
     ComboBox cmbEstatus, cmbClientes;
     @FXML
     Button btnRegresar;
+    @FXML
+    TableView tblTickets;
+    @FXML
+    TableColumn colTicketId, colDescripcion, colEstatus, colCliente, colFactura;
     
     @FXML
     public void handleButtonAction(ActionEvent event){
@@ -37,9 +45,56 @@ public class MenuTicketSoporteController implements Initializable {
         }
     }
     
+    public void cargarDatos(){
+        tblTickets.setItems(listarTickets());
+        colTicketId.setCellValueFactory(new PropertyValueFactory<TicketSoporte, Integer>("ticketSoporteId"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("descripcionTicket"));
+        colEstatus.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("estatus"));
+        colCliente.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("cliente"));
+        colFactura.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("facturaId"));
+    }
+    
     public void cargarCmbEstatus(){
         cmbEstatus.getItems().add("En proceso");
         cmbEstatus.getItems().add("Finalizado");
+    }
+    
+    public ObservableList<TicketSoporte> listarTickets(){
+        ArrayList<TicketSoporte> tickets = new ArrayList<>();
+        
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarTicketSoporte()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            
+            while(resultSet.next()){
+                int ticketSoporteId = resultSet.getInt("ticketSoporteId");
+                String descripcion = resultSet.getString("descripcionTicket");
+                String estatus = resultSet.getString("estatus");
+                String cliente = resultSet.getString("cliente");
+                int facturaId = resultSet.getInt("facturaId");
+                
+                tickets.add(new TicketSoporte(ticketSoporteId, descripcion, estatus, cliente, facturaId));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultSet != null){
+                    resultSet.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return FXCollections.observableList(tickets);
     }
     
     public ObservableList<Cliente> listarClientes(){
@@ -87,6 +142,7 @@ public class MenuTicketSoporteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         cargarCmbEstatus();
         cmbClientes.setItems(listarClientes());
+        cargarDatos();
     }    
 
     public Main getStage() {

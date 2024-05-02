@@ -473,6 +473,7 @@ BEGIN
 END $$
 DELIMITER ;
 
+call sp_listarFactura();
 DELIMITER $$
 create procedure sp_eliminarFactura(facId INT)
 BEGIN
@@ -573,7 +574,7 @@ create procedure sp_agregarTicketSoporte(des varchar (250), in cliId int,in facI
 	END $$
 DELIMITER ;
  
--- call sp_agregraTiketSoporte('Arrababasay', 'En tramite', 2);
+call sp_agregraTiketSoporte('Arrababasay', 2, 1);
  
 -- listar TIKETSOPORTE
 DELIMITER $$
@@ -586,7 +587,7 @@ create procedure sp_listarTicketSoporte()
 	END $$
 DELIMITER ;
  
--- call sp_listarTicketSoporte();
+call sp_listarTicketSoporte();
  
 -- Eliminar TIKETSOPORTE
 DELIMITER $$
