@@ -47,7 +47,7 @@ public class MenuTicketSoporteController implements Initializable {
         
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarClientes()";
+            String sql = "call sp_listarCliente()";
             statement = conexion.prepareStatement(sql);
             resultSet = statement.executeQuery();
             
