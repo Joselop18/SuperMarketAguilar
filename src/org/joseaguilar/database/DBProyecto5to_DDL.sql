@@ -93,7 +93,7 @@ create table DetalleCompras(
 create table Facturas(
 	facturaId int not null auto_increment,
     fecha date not null,
-    hora date not null,
+    hora time not null,
     clienteId int not null,
     empleadoId int not null,
     total decimal,

@@ -454,10 +454,10 @@ delimiter ;
 
 -- *** Facturas *** --
 DELIMITER $$
-create procedure sp_agregarFactura(fec date, hor time, cliId int, empId int)
+create procedure sp_agregarFactura(cliId int, empId int)
 BEGIN
-	insert into Facturas(fecha, hora, clienteId, empleadoId) values
-		(fec, hor, cliId, empId);
+	insert into Facturas(fecha, hora, clienteId, empleadoId) 
+    values(date(now()), time(now()), cliId, empId);
 END $$
 DELIMITER ;
 
@@ -587,7 +587,7 @@ create procedure sp_listarTicketSoporte()
 	END $$
 DELIMITER ;
  
--- call sp_listarTicketSoporte();
+call sp_listarTicketSoporte();
  
 -- Eliminar TIKETSOPORTE
 DELIMITER $$
