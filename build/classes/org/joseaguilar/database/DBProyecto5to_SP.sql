@@ -630,7 +630,7 @@ create procedure sp_editarTicketSoporte(in ticId int, des varchar (250), est var
 	END $$
 DELIMITER ;
  
--- call sp_editarTiketSoporte(2, 'Jonathan malo', 'Perdido', 1);
+-- call sp_editarTicketSoporte(2, 'Jonathan malo', 'Perdido', 1);
 -- ------------------------------------------------------------------------------------------------------
 
 -- ==========================================================================================================================================================================
