@@ -34,7 +34,7 @@
             <Font name="Georgia Bold" size="12.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="DEFAULT" />
+            <Cursor fx:constant="NONE" />
          </cursor>
       </TextField>
       <TextArea fx:id="taDescripcion" layoutX="86.0" layoutY="365.0" opacity="0.85" prefHeight="180.0" prefWidth="354.0" promptText="Descripcion Max. 250 caracteres" style="-fx-border-color: #c94d65; -fx-background-radius: 15; -fx-border-radius: 15;" wrapText="true">
@@ -104,7 +104,7 @@
             </InnerShadow>
          </effect>
          <cursor>
-            <Cursor fx:constant="DISAPPEAR" />
+            <Cursor fx:constant="HAND" />
          </cursor>
       </TableView>
       <Button fx:id="btnRegresar" layoutX="86.0" layoutY="716.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="158.0" style="-fx-background-radius: 30; -fx-background-color: #161616;" text="Regresar" textFill="#a41616">
@@ -145,7 +145,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnGuardar1" layoutX="318.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="158.0" style="-fx-background-radius: 30; -fx-background-color: #161616;" text="Guardar" textFill="#92b35a">
+      <Button fx:id="btnGuardar" layoutX="318.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="158.0" style="-fx-background-radius: 30; -fx-background-color: #161616;" text="Guardar" textFill="#92b35a">
          <font>
             <Font name="Berlin Sans FB Bold" size="23.0" />
          </font>

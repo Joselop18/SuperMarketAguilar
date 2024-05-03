@@ -84,17 +84,17 @@ public class MenuTicketSoporteController implements Initializable {
             tfTicketId.setText(Integer.toString(ts.getTicketSoporteId()));
             taDescripcion.setText(ts.getDescripcionTicket());
             cmbEstatus.getSelectionModel().select(0);
-            cmbClientes.getSelectionModel().select(obtenderIndeCliente());
+            cmbClientes.getSelectionModel().select(obtenderIndexCliente());
         }
     }
     
-    public int obtenderIndeCliente(){
+    public int obtenderIndexCliente(){
         int index = 0;
         for(int i = 0 ; i <= cmbClientes.getItems().size() ; i++){
             String clienteCmb = cmbClientes.getItems().get(i).toString();
             String clienteTbl = ((TicketSoporte)tblTickets.getSelectionModel().getSelectedItem()).getCliente();
             if(clienteCmb.equals(clienteTbl)){
-                index = 1;
+                index = i;
                 break;
             }
         }
