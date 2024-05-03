@@ -52,6 +52,7 @@ public class MenuTicketSoporteController implements Initializable {
         colEstatus.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("estatus"));
         colCliente.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("cliente"));
         colFactura.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("facturaId"));
+        tblTickets.getSortOrder().add(colTicketId);
     }
     
     public void cargarCmbEstatus(){

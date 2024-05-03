@@ -574,7 +574,7 @@ create procedure sp_agregarTicketSoporte(des varchar (250), in cliId int,in facI
 	END $$
 DELIMITER ;
  
-call sp_agregraTiketSoporte('Arrababasay', 2, 1);
+-- call sp_agregarTicketSoporte('Arrababasay', 2, 1);
  
 -- listar TIKETSOPORTE
 DELIMITER $$
@@ -587,7 +587,7 @@ create procedure sp_listarTicketSoporte()
 	END $$
 DELIMITER ;
  
-call sp_listarTicketSoporte();
+-- call sp_listarTicketSoporte();
  
 -- Eliminar TIKETSOPORTE
 DELIMITER $$
@@ -599,7 +599,7 @@ create procedure sp_eliminarTicketSoporte(in ticId int)
 	END $$
 DELIMITER ;
  
--- call sp_eliminarTiketSoporte(1);
+-- call sp_eliminarTicketSoporte(1);
  
 -- Buscar TIKETSOPORTE
 DELIMITER $$
@@ -615,7 +615,7 @@ create procedure sp_buscarTicketSoporte(in ticId int)
 	END $$
 DELIMITER  ;
  
--- call sp_buscarTiketSoporte(2);
+call sp_buscarTicketSoporte(2);
  
 -- Editar TIKETSOPORTE
 DELIMITER $$

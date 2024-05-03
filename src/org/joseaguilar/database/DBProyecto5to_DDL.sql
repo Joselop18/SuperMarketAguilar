@@ -1,4 +1,4 @@
-drop database if exists SuperKinalDB;
+-- drop database if exists SuperKinalDB;
 
 create database if not exists SuperKinalDB;
 
@@ -140,5 +140,5 @@ create table Promociones(
 );
  
 insert into Clientes(nombre, apellido, telefono, direccion, nit, clienteId) values
-	('Rene', 'Oxcal', '1111-1111', 'Su casa', '45-45874525', 1),
-    ('Jorge', 'Peralta', '2222-2222', 'Su casa', '45-45965215', 2);
+	('Rene', 'Rosas', '1111-1111', 'Petapa', '1234567-8', 1),
+    ('Jorge', 'Peralta', '2222-2222', 'Amatitlan', '7894561-2', 2);
