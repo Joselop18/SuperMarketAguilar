@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
@@ -32,6 +33,9 @@
          <font>
             <Font name="Georgia Bold" size="12.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
       </TextField>
       <TextArea fx:id="taDescripcion" layoutX="86.0" layoutY="365.0" opacity="0.85" prefHeight="180.0" prefWidth="354.0" promptText="Descripcion Max. 250 caracteres" style="-fx-border-color: #c94d65; -fx-background-radius: 15; -fx-border-radius: 15;" wrapText="true">
          <effect>
@@ -44,8 +48,11 @@
          <font>
             <Font name="Eras Demi ITC" size="14.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
       </TextArea>
-      <ComboBox fx:id="cmbClientes" layoutX="714.0" layoutY="224.0" prefHeight="34.0" prefWidth="229.0" promptText="Clientes" style="-fx-background-radius: 10; -fx-background-color: #c94d65; -fx-border-color: #ffffff; -fx-border-radius: 10;">
+      <ComboBox fx:id="cmbClientes" layoutX="714.0" layoutY="224.0" onAction="#handleButtonAction" prefHeight="34.0" prefWidth="229.0" promptText="Clientes" style="-fx-background-radius: 10; -fx-background-color: #c94d65; -fx-border-color: #ffffff; -fx-border-radius: 10;">
          <effect>
             <DropShadow>
                <input>
@@ -53,6 +60,9 @@
                </input>
             </DropShadow>
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ComboBox>
       <ComboBox fx:id="cmbFacturas" layoutX="959.0" layoutY="224.0" prefHeight="34.0" prefWidth="229.0" promptText="Facturas" style="-fx-background-radius: 10; -fx-background-color: #c94d65; -fx-border-color: #ffffff; -fx-border-radius: 10;">
          <effect>
@@ -62,6 +72,9 @@
                </input>
             </InnerShadow>
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ComboBox>
       <ComboBox fx:id="cmbEstatus" layoutX="86.0" layoutY="608.0" prefHeight="34.0" prefWidth="229.0" promptText="Estatus" style="-fx-background-radius: 10; -fx-background-color: #e7c049; -fx-border-color: #ffffff; -fx-border-radius: 10;">
          <effect>
@@ -71,6 +84,9 @@
                </input>
             </DropShadow>
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ComboBox>
       <TableView fx:id="tblTickets" layoutX="511.0" layoutY="340.0" onMouseClicked="#cargarDatosEditar" opacity="0.7" prefHeight="437.0" prefWidth="666.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
         <columns>
@@ -87,6 +103,9 @@
                </input>
             </InnerShadow>
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </TableView>
       <Button fx:id="btnRegresar" layoutX="86.0" layoutY="716.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="158.0" style="-fx-background-radius: 30; -fx-background-color: #161616;" text="Regresar" textFill="#a41616">
          <font>
@@ -103,6 +122,9 @@
                </input>
             </Bloom>
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button fx:id="btnVaciar" layoutX="313.0" layoutY="716.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="168.0" style="-fx-background-radius: 30; -fx-background-color: #161616;" text="Vaciar Form" textFill="#5f5bb2">
          <font>
@@ -119,6 +141,9 @@
                </input>
             </Bloom>
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button fx:id="btnGuardar" layoutX="318.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="158.0" style="-fx-background-radius: 30; -fx-background-color: #161616;" text="Guardar" textFill="#92b35a">
          <font>
@@ -135,6 +160,9 @@
                </input>
             </Bloom>
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
    </children>
 </AnchorPane>
