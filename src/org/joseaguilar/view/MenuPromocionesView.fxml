@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="760.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joseaguilar.controller.MenuPromocionesController">
+   <children>
+      <ImageView fitHeight="760.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/FondoMenuPromociones.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfPromocionId" editable="false" layoutX="958.0" layoutY="81.0" prefHeight="25.0" prefWidth="201.0" promptText="Id de la promocion" />
+      <TextField fx:id="tfPrecio" layoutX="959.0" layoutY="172.0" prefHeight="25.0" prefWidth="215.0" />
+      <TextArea fx:id="taDescripcion" layoutX="923.0" layoutY="276.0" prefHeight="122.0" prefWidth="241.0" wrapText="true" />
+      <TextField fx:id="tfFechaInicio" layoutX="939.0" layoutY="517.0" prefHeight="37.0" prefWidth="241.0" />
+      <TextField fx:id="tfFechaFinalizacion" layoutX="936.0" layoutY="687.0" prefHeight="37.0" prefWidth="241.0" />
+      <ComboBox fx:id="cmbProducto" layoutX="671.0" layoutY="84.0" prefWidth="150.0" />
+      <TableView fx:id="tblPromociones" layoutX="9.0" layoutY="266.0" prefHeight="351.0" prefWidth="674.0">
+        <columns>
+          <TableColumn fx:id="colPromocionId" prefWidth="81.0" text="promocion Id" />
+          <TableColumn fx:id="colPrecio" prefWidth="99.0" text="Precio" />
+            <TableColumn fx:id="colDescripcion" prefWidth="109.0" text="Descripcion" />
+            <TableColumn fx:id="colFechaInicio" prefWidth="124.0" text="Fecha de inicio" />
+            <TableColumn fx:id="colFechaFinalizacion" prefWidth="128.0" text="Fecha de finalizacion" />
+            <TableColumn fx:id="colProducto" prefWidth="132.0" text="producto" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnGuardar" layoutX="741.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Guardar" />
+      <Button fx:id="btnEliminar" layoutX="741.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Eliminar" />
+      <Button fx:id="btnVaciar" layoutX="746.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Vaciar" />
+      <Button fx:id="btnReporte" layoutX="741.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Reporte" />
+      <Button fx:id="btnRegresar" layoutX="191.0" layoutY="661.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Regresar" />
+   </children>
+</AnchorPane>

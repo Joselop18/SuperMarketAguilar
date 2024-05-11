@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="760.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joseaguilar.controller.MenuComprasController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/FondoMenuCompras.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfCompraId" editable="false" layoutX="51.0" layoutY="238.0" prefHeight="26.0" prefWidth="181.0" promptText="Id de la compra" />
+      <TextField fx:id="tfFecha" layoutX="51.0" layoutY="340.0" prefHeight="18.0" prefWidth="181.0" />
+      <TextField fx:id="tfTotal" layoutX="51.0" layoutY="468.0" prefHeight="18.0" prefWidth="181.0" />
+      <TableView fx:id="tblCompras" layoutX="334.0" layoutY="130.0" onMouseClicked="#cargarDatosEditar" prefHeight="371.0" prefWidth="434.0">
+        <columns>
+          <TableColumn fx:id="colCompraId" prefWidth="75.0" text="compraId" />
+          <TableColumn fx:id="colFecha" prefWidth="187.0" text="fecha" />
+            <TableColumn fx:id="colTotal" prefWidth="171.0" text="total" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnGuardar" layoutX="843.0" layoutY="176.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Guardar" />
+      <Button fx:id="btnEliminar" layoutX="837.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Eliminar" />
+      <Button layoutX="843.0" layoutY="315.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Reporte" />
+      <Button fx:id="btnRegresar" layoutX="40.0" layoutY="661.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Regresar" />
+      <Button fx:id="btnVaciar" layoutX="843.0" layoutY="380.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="80.0" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Vaciar" />
+   </children>
+</AnchorPane>

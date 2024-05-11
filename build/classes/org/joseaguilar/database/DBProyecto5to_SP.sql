@@ -619,7 +619,7 @@ call sp_buscarTicketSoporte(2);
  
 -- Editar TIKETSOPORTE
 DELIMITER $$
-create procedure sp_editarTicketSoporte(in ticId int, des varchar (250), est varchar (30), in cliId int )
+create procedure sp_editarTicketSoporte(in ticId int, des varchar (250), est varchar (30), in cliId int, in facId int)
 	BEGIN
 		update TicketSoporte
 			set

@@ -1,6 +1,5 @@
 package org.joseaguilar.model;
 
-
 public class TicketSoporte {
     private int ticketSoporteId;
     private String descripcionTicket;
@@ -10,7 +9,6 @@ public class TicketSoporte {
     private int facturaId;
 
     public TicketSoporte() {
-        
     }
 
     public TicketSoporte(int ticketSoporteId, String descripcionTicket, String estatus, String cliente, int facturaId) {
@@ -32,6 +30,7 @@ public class TicketSoporte {
     public int getTicketSoporteId() {
         return ticketSoporteId;
     }
+
     public void setTicketSoporteId(int ticketSoporteId) {
         this.ticketSoporteId = ticketSoporteId;
     }
@@ -39,6 +38,7 @@ public class TicketSoporte {
     public String getDescripcionTicket() {
         return descripcionTicket;
     }
+
     public void setDescripcionTicket(String descripcionTicket) {
         this.descripcionTicket = descripcionTicket;
     }
@@ -46,6 +46,7 @@ public class TicketSoporte {
     public String getEstatus() {
         return estatus;
     }
+
     public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
@@ -53,6 +54,7 @@ public class TicketSoporte {
     public String getCliente() {
         return cliente;
     }
+
     public void setCliente(String cliente) {
         this.cliente = cliente;
     }
@@ -60,6 +62,7 @@ public class TicketSoporte {
     public int getClienteId() {
         return clienteId;
     }
+
     public void setClienteId(int clienteId) {
         this.clienteId = clienteId;
     }
@@ -67,12 +70,13 @@ public class TicketSoporte {
     public int getFacturaId() {
         return facturaId;
     }
+
     public void setFacturaId(int facturaId) {
         this.facturaId = facturaId;
     }
 
     @Override
     public String toString() {
-        return "TicketSoporte{" + "ticketSoporteId=" + ticketSoporteId + ", descripcionTicket=" + descripcionTicket + ", status=" + estatus + ", cliente=" + cliente + ", clienteId=" + clienteId + ", facturaId=" + facturaId + '}';
-    }
+        return "TicketSoporte{" + "ticketSoporteId=" + ticketSoporteId + ", descripcionTicket=" + descripcionTicket + ", estatus=" + estatus + ", cliente=" + cliente + ", clienteId=" + clienteId + ", facturaId=" + facturaId + '}';
+    } 
 }

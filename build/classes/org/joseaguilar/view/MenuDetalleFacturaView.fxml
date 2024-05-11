@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="760.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joseaguilar.controller.MenuDetalleFacturaController">
+   <children>
+      <ImageView fitHeight="760.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/FondoMenuDetalleFacturas.jpg" />
+         </image>
+      </ImageView>
+      <TextField editable="false" layoutX="584.0" layoutY="175.0" prefHeight="27.0" prefWidth="168.0" promptText="Id del detalle factura" />
+      <TableView fx:id="tblDetalleFacturas" layoutX="275.0" layoutY="233.0" prefHeight="391.0" prefWidth="798.0">
+        <columns>
+          <TableColumn fx:id="colDetalleFacturaId" prefWidth="115.0" text="detalleFactura Id" />
+          <TableColumn fx:id="colFecha" prefWidth="101.0" text="fecha" />
+            <TableColumn fx:id="colHora" prefWidth="99.0" text="hora" />
+            <TableColumn fx:id="colTotal" prefWidth="73.0" text="total" />
+            <TableColumn fx:id="colNombre" prefWidth="119.0" text="nombre" />
+            <TableColumn fx:id="colApellido" prefWidth="120.0" text="apellido" />
+            <TableColumn fx:id="colEmpleado" prefWidth="170.0" text="empleado" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
