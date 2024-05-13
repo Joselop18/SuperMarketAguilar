@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joseaguilar.controller.MenuTicketSoporteController">
    <children>
@@ -17,22 +23,133 @@
             <Image url="@../image/FondoMenuTicketSoporte.jpg" />
          </image>
       </ImageView>
-      <TextArea fx:id="taDescripcion" layoutX="75.0" layoutY="378.0" prefHeight="174.0" prefWidth="313.0" wrapText="true" />
-      <TextField fx:id="tfTicketId" editable="false" layoutX="469.0" layoutY="233.0" prefHeight="25.0" prefWidth="168.0" promptText="Ticket Id" />
-      <ComboBox fx:id="cmbClientes" layoutX="743.0" layoutY="233.0" prefHeight="25.0" prefWidth="144.0" />
-      <ComboBox fx:id="cmbFacturas" layoutX="967.0" layoutY="233.0" prefHeight="25.0" prefWidth="150.0" />
-      <TableView fx:id="tblTickets" layoutX="515.0" layoutY="317.0" onMouseClicked="#cargarDatosEditar" prefHeight="348.0" prefWidth="671.0">
+      <TextArea fx:id="taDescripcion" layoutX="86.0" layoutY="365.0" opacity="0.85" prefHeight="180.0" prefWidth="354.0" promptText="Descripcion Max. 250 caracteres" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #c94d65;" wrapText="true">
+         <font>
+            <Font name="Eras Demi ITC" size="14.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <input>
+                  <InnerShadow />
+               </input>
+            </DropShadow>
+         </effect></TextArea>
+      <TextField fx:id="tfTicketId" editable="false" layoutX="476.0" layoutY="224.0" prefHeight="34.0" prefWidth="182.0" promptText="Ticket ID" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #e7c049;">
+         <font>
+            <Font name="Georgia Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <input>
+                  <InnerShadow />
+               </input>
+            </DropShadow>
+         </effect></TextField>
+      <ComboBox fx:id="cmbClientes" layoutX="714.0" layoutY="224.0" prefHeight="34.0" prefWidth="229.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #c94d65; -fx-border-color: #ffffff;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow>
+               <input>
+                  <InnerShadow />
+               </input>
+            </DropShadow>
+         </effect></ComboBox>
+      <ComboBox fx:id="cmbFacturas" layoutX="959.0" layoutY="224.0" prefHeight="34.0" prefWidth="229.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #c94d65; -fx-border-color: #ffffff;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow>
+               <input>
+                  <InnerShadow />
+               </input>
+            </DropShadow>
+         </effect></ComboBox>
+      <TableView fx:id="tblTickets" layoutX="511.0" layoutY="340.0" onMouseClicked="#cargarDatosEditar" opacity="0.7" prefHeight="437.0" prefWidth="666.0" style="-fx-background-radius: 15;">
         <columns>
-          <TableColumn fx:id="colTicketId" prefWidth="48.0" text="ticketId" />
-          <TableColumn fx:id="colDescripcion" prefWidth="178.0" text="descripcion" />
-            <TableColumn fx:id="colEstatus" prefWidth="118.0" text="estatus" />
-            <TableColumn fx:id="colCliente" prefWidth="160.0" text="cliente" />
-            <TableColumn fx:id="colFactura" prefWidth="166.0" text="factura" />
+          <TableColumn fx:id="colTicketId" prefWidth="116.0" text="Ticket ID" />
+          <TableColumn fx:id="colDescripcion" prefWidth="281.0" text="Descripción" />
+            <TableColumn fx:id="colEstatus" prefWidth="112.0" text="Estatus" />
+            <TableColumn fx:id="colCliente" prefWidth="77.0" text="Cliente" />
+            <TableColumn fx:id="colFactura" prefWidth="79.0" text="Factura" />
         </columns>
+         <effect>
+            <DropShadow>
+               <input>
+                  <InnerShadow />
+               </input>
+            </DropShadow>
+         </effect>
       </TableView>
-      <Button fx:id="btnRegresar" layoutX="39.0" layoutY="712.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="92.0" style="-fx-background-color: #F98F4B;" text="Regresar" />
-      <Button fx:id="btnGuardar" layoutX="825.0" layoutY="692.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="92.0" style="-fx-background-color: #237092;" text="Guardar" />
-      <ComboBox fx:id="cmbEstatus" layoutX="75.0" layoutY="614.0" prefHeight="38.0" prefWidth="265.0" />
-      <Button fx:id="btnVaciar" layoutX="950.0" layoutY="692.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="92.0" style="-fx-background-color: #F98F4B;" text="Vaciar Form" />
+      <Button fx:id="btnRegresar" layoutX="86.0" layoutY="716.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="158.0" style="-fx-background-color: #161616; -fx-background-radius: 30;" text="Regresar" textFill="#a41616">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="23.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Bloom threshold="0.2">
+               <input>
+                  <DropShadow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </DropShadow>
+               </input>
+            </Bloom>
+         </effect></Button>
+      <Button fx:id="btnGuardar" layoutX="322.0" layoutY="715.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="158.0" style="-fx-background-color: #161616; -fx-background-radius: 30;" text="Guardar" textFill="#92b35a">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="23.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Bloom threshold="0.2">
+               <input>
+                  <DropShadow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </DropShadow>
+               </input>
+            </Bloom>
+         </effect></Button>
+      <ComboBox fx:id="cmbEstatus" layoutX="86.0" layoutY="608.0" prefHeight="34.0" prefWidth="229.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #e7c049; -fx-border-color: #ffffff;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow>
+               <input>
+                  <InnerShadow />
+               </input>
+            </DropShadow>
+         </effect></ComboBox>
+      <Button fx:id="btnVaciar" layoutX="324.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="48.0" prefWidth="158.0" style="-fx-background-color: #161616; -fx-background-radius: 30;" text="Vaciar Form" textFill="#623de8">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="20.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Bloom threshold="0.2">
+               <input>
+                  <DropShadow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </DropShadow>
+               </input>
+            </Bloom>
+         </effect></Button>
    </children>
 </AnchorPane>

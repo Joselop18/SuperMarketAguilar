@@ -92,10 +92,10 @@ public class MenuProductosController implements Initializable {
                     cargarDatos();
                 }else{
                     lblNombre.setText(producto.getNombreProducto());
-                    /* InputStream file = producto.getImagenProducto().getBinaryStream();
+                    InputStream file = producto.getImagenProducto().getBinaryStream();
                     Image image = new Image(file);
                     imgMostrar.setImage(image);
-                    */ tblProductos.getItems().add(buscarProducto());
+                    tblProductos.getItems().add(buscarProducto());
                     colProductoId.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("productoId"));
                     colNombre.setCellValueFactory(new PropertyValueFactory<Producto, String>("nombreProducto"));
                     colDescripcion.setCellValueFactory(new PropertyValueFactory<Producto, String>("descripcionProducto"));
