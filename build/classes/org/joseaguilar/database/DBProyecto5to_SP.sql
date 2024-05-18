@@ -68,10 +68,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarCargo()
 BEGIN
-	select
-		Cargos.nombreCargo,
-		Cargos.descripcionCargo
-		from Cargos;
+	select * from Cargos; 
 END $$
 DELIMITER ;
 
@@ -227,15 +224,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarEmpleado()
 BEGIN
-	select
-		Empleados.nombreEmpleado,
-        Empleados.apellidoEmpleado,
-        Empleados.sueldo,
-        Empleados.horaEntrada,
-        Empleados.horaSalida,
-        Empleados.cargoId,
-        Empleados.encargadoId
-        from Empleados;
+	select*from Empleados;
 END $$
 DELIMITER ;
 

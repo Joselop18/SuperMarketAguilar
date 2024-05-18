@@ -192,14 +192,14 @@ public class Main extends Application {
         }
     }
     
-    public void menuDetalleFacturasView(){
-        try{
-            MenuDetalleFacturaController menuDetalleFacturasView = (MenuDetalleFacturaController)switchScene("MenuDetalleFacturaView", 1200, 760);
-            menuDetalleFacturasView.setStage(this);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
+//    public void menuDetalleFacturasView(){
+//        try{
+//            MenuDetalleFacturaController menuDetalleFacturasView = (MenuDetalleFacturaController)switchScene("MenuDetalleFacturaView", 1200, 760);
+//            menuDetalleFacturasView.setStage(this);
+//        }catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//    }
     
     public static void main(String[] args) {
        

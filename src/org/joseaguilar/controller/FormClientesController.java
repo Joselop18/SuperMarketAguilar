@@ -60,6 +60,7 @@ public class FormClientesController implements Initializable {
     public void handleButtonAction(ActionEvent event){
         if(event.getSource() == btnCancelar){
             stage.menuClientesView();
+            ClienteDTO.getClienteDTO().setCliente(null);
         }else if(event.getSource() == btnAgregar){
             if(op == 1){
                 agregarCliente();

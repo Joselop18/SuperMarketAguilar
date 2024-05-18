@@ -68,10 +68,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarCargo()
 BEGIN
-	select
-		Cargos.nombreCargo,
-		Cargos.descripcionCargo
-		from Cargos;
+	select * from Cargos; 
 END $$
 DELIMITER ;
 
@@ -227,15 +224,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarEmpleado()
 BEGIN
-	select
-		Empleados.nombreEmpleado,
-        Empleados.apellidoEmpleado,
-        Empleados.sueldo,
-        Empleados.horaEntrada,
-        Empleados.horaSalida,
-        Empleados.cargoId,
-        Empleados.encargadoId
-        from Empleados;
+	select*from Empleados;
 END $$
 DELIMITER ;
 
@@ -297,7 +286,7 @@ delimiter $$
 create procedure sp_listarCategoriaProducto()
 	begin
 		select
-			C.categoriaProductoId,
+			C.categoriaProductosId,
             C.nombreCategoria,
             C.descripcionCategoria
 				from CategoriaProductos C;
@@ -464,12 +453,7 @@ DELIMITER ;
 DELIMITER $$
 create procedure sp_listarFactura()
 BEGIN
-	select
-		Facturas.fecha,
-		Facturas.hora,
-        Facturas.clienteId,
-        Facturas.empleadoId
-		from Facturas;
+	select*from Facturas;
 END $$
 DELIMITER ;
 

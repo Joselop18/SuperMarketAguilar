@@ -53,7 +53,7 @@ public class MenuEmpleadosController implements Initializable {
         ArrayList<Empleado> empleados = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarEmpleados()";
+            String sql = "call sp_listarEmpleado()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             
@@ -64,8 +64,8 @@ public class MenuEmpleadosController implements Initializable {
                 double sueldo = resultset.getDouble("sueldo");
                 String horaEntrada = resultset.getString("horaEntrada");
                 String horaSalida = resultset.getString("horaSalida");
-                String cargo = resultset.getString("nombreCargo");
-                String encargado = resultset.getString("encargado");
+                String cargo = resultset.getString("cargoId");
+                String encargado = resultset.getString("encargadoId");
 
                 empleados.add(new Empleado(empleadoId, nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargo, encargado));
             }
@@ -99,15 +99,15 @@ public class MenuEmpleadosController implements Initializable {
         colSueldo.setCellValueFactory(new PropertyValueFactory<Empleado, Double>("sueldo"));
         colEntrada.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaEntrada"));
         colSalida.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaSalida"));
-        colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargo"));
-        colEncargado.setCellValueFactory(new PropertyValueFactory<Empleado, String>("encargado"));
+        colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargoId"));
+        colEncargado.setCellValueFactory(new PropertyValueFactory<Empleado, String>("encargadoId"));
 
     }
     
     public void eliminarEmpleados(int empId){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_eliminarEmpleados(?)";
+            String sql = "call sp_eliminarEmpleado(?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, empId);
             statement.execute();
@@ -131,7 +131,7 @@ public class MenuEmpleadosController implements Initializable {
         Empleado empleado = null;
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_buscarEmpleados(?)";
+            String sql = "call sp_buscarEmpleado(?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1 ,Integer.parseInt(tfEmpleadosId.getText()));
             resultset = statement.executeQuery();
@@ -143,8 +143,8 @@ public class MenuEmpleadosController implements Initializable {
                 double sueldo = resultset.getDouble("sueldo");
                 String horaEntrada = resultset.getString("horaEntrada");
                 String horaSalida = resultset.getString("horaSalida");
-                String cargo = resultset.getString("cargo");
-                String encargado = resultset.getString("encargado");
+                String cargo = resultset.getString("cargoId");
+                String encargado = resultset.getString("encargadoId");
                 
                 empleado = (new Empleado(empleadoId, nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargo, encargado));
             }
@@ -200,7 +200,7 @@ public class MenuEmpleadosController implements Initializable {
                 colSueldo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("sueldo"));
                 colEntrada.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaEntrada"));
                 colSalida.setCellValueFactory(new PropertyValueFactory<Empleado, String>("horaSalida"));
-                colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargo"));
+                colCargo.setCellValueFactory(new PropertyValueFactory<Empleado, String>("cargoId"));
                 colEncargado.setCellValueFactory(new PropertyValueFactory<Empleado, String>("encargadoId"));
             }
         }

@@ -48,7 +48,7 @@ public class MenuCargosController implements Initializable {
         ArrayList<Cargo> cargos = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarCargos()";
+            String sql = "call sp_listarCargo()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             
@@ -90,7 +90,7 @@ public class MenuCargosController implements Initializable {
      public void agregarCargo(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarCargos(?, ?)";
+            String sql = "call sp_agregarCargo(?, ?)";
             statement = conexion.prepareStatement(sql);
             statement.setString(1, tfNombreCargo.getText());
             statement.setString(2, taDescripcion.getText());

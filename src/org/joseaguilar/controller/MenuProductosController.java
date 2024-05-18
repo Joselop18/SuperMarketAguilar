@@ -103,8 +103,8 @@ public class MenuProductosController implements Initializable {
                     colPUnitario.setCellValueFactory(new PropertyValueFactory<Producto, Double>("precioVentaUnitario"));
                     colPMayor.setCellValueFactory(new PropertyValueFactory<Producto, Double>("precioVentaMayor"));
                     colPCompra.setCellValueFactory(new PropertyValueFactory<Producto, Double>("precioCompra"));
-                    colDistribuidor.setCellValueFactory(new PropertyValueFactory<Producto, String>("distribuidor"));
-                    colCategoria.setCellValueFactory(new PropertyValueFactory<Producto, String>("categoriaProductos"));
+                    colDistribuidor.setCellValueFactory(new PropertyValueFactory<Producto, String>("distribuidorId"));
+                    colCategoria.setCellValueFactory(new PropertyValueFactory<Producto, String>("categoriaProductosId"));
                 }
             }
             

@@ -83,8 +83,8 @@ public class MenuFacturaController implements Initializable {
         colFacturaId.setCellValueFactory(new PropertyValueFactory<Factura, Integer>("facturaId"));
         colFecha.setCellValueFactory(new PropertyValueFactory<Factura, LocalDate>("fecha"));
         colHora.setCellValueFactory(new PropertyValueFactory<Factura, LocalTime>("hora"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<Factura, String>("cliente"));
-        colEmpleado.setCellValueFactory(new PropertyValueFactory<Factura, String>("empleado"));
+        colCliente.setCellValueFactory(new PropertyValueFactory<Factura, String>("clienteId"));
+        colEmpleado.setCellValueFactory(new PropertyValueFactory<Factura, String>("empleadoId"));
         colTotal.setCellValueFactory(new PropertyValueFactory<Factura, Double>("total"));
         tblFacturas.getSortOrder().add(colFacturaId);
     }
@@ -130,7 +130,7 @@ public class MenuFacturaController implements Initializable {
         ArrayList<Factura> facturas = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarFacturas()";
+            String sql = "call sp_listarFactura()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             
@@ -138,8 +138,8 @@ public class MenuFacturaController implements Initializable {
                 int facturaId = resultset.getInt("facturaId");
                 Date fecha = resultset.getDate("fecha");
                 Time hora = resultset.getTime("hora");
-                String cliente = resultset.getString("cliente");
-                String empleado = resultset.getString("empleado");
+                String cliente = resultset.getString("clienteId");
+                String empleado = resultset.getString("empleadoId");
                 Double total = resultset.getDouble("total");
 
                 
@@ -209,7 +209,7 @@ public class MenuFacturaController implements Initializable {
         ArrayList<Empleado> empleados = new ArrayList<>();
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarEmpleados()";
+            String sql = "call sp_listarEmpleado()";
             statement = conexion.prepareStatement(sql);
             resultset = statement.executeQuery();
             
@@ -220,8 +220,8 @@ public class MenuFacturaController implements Initializable {
                 double sueldo = resultset.getDouble("sueldo");
                 String horaEntrada = resultset.getString("horaEntrada");
                 String horaSalida = resultset.getString("horaSalida");
-                String cargo = resultset.getString("nombreCargo");
-                String encargado = resultset.getString("encargado");
+                String cargo = resultset.getString("cargoId");
+                String encargado = resultset.getString("encargadoId");
 
                 empleados.add(new Empleado(empleadoId, nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargo, encargado));
             }
@@ -249,7 +249,7 @@ public class MenuFacturaController implements Initializable {
     public void agregarFacturas(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarFacturas(?, ?, ?, ?, ?)";
+            String sql = "call sp_agregarFactura(?, ?, ?, ?, ?)";
             statement = conexion.prepareStatement(sql);
             statement.setDate(1, Date.valueOf(LocalDate.now()));
             statement.setTime(2, Time.valueOf(LocalTime.now()));
@@ -278,7 +278,7 @@ public class MenuFacturaController implements Initializable {
     public void editarFacturas(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarFacturas(?, ?, ?, ?, ?, ?)";
+            String sql = "call sp_editarFactura(?, ?, ?, ?, ?, ?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfFacturaId.getText()));
             statement.setDate(2, Date.valueOf(tfFecha.getText()));
