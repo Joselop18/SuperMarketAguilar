@@ -136,7 +136,7 @@ for each row
 begin
     if (select P.cantidadStock from Productos P where productoId = NEW.productoId) = 0 then
 signal sqlstate'45000'
-set message_text="No contamos con este producto en stock:c";
+set message_text="No contamos con este producto en stock";
     else
 call sp_manejoStock(new.productoId);
 end if;

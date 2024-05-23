@@ -22,7 +22,7 @@ public class Main extends Application {
         Image icon = new Image("org/joseaguilar/image/Icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("SuperMarket Aguilar's");
-        menuPrincipalView();
+        loginView();
         stage.show();
     }
     
@@ -201,8 +201,25 @@ public class Main extends Application {
 //        }
 //    }
     
+    public void loginView(){
+        try{
+            LoginController loginView = (LoginController) switchScene("LoginView.fxml", 480, 720);
+            loginView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void formUsuarioView(){
+        try{
+            FormUsuarioController formUsuarioView = (FormUsuarioController) switchScene("FormUsuarioView.fxml", 480, 720);
+            formUsuarioView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void main(String[] args) {
-       
         launch(args);
     } 
 }

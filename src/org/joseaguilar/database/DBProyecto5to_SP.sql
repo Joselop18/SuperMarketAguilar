@@ -221,6 +221,8 @@ BEGIN
 END $$
 DELIMITER ;
 
+call sp_agregarEmpleado('Jose', 'Aguilar', 5000.00, '07:00:00', '15:00:00', 1, null);
+
 DELIMITER $$
 create procedure sp_listarEmpleado()
 BEGIN
@@ -704,7 +706,56 @@ create procedure sp_editarEncargado(empId int, encId int)
 	END $$
 DELIMITER ;
 
-
- 
- 
 set global time_zone = '-6:00';
+
+-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-- ---------------------------- Usuarios --------------------------
+create table Usuarios(
+	usuarioId int not null auto_increment,
+    usuario varchar(50) not null,
+    contrasenia varchar(100) not null,
+    nivelAccesoId int not null,
+    empleadoId int not null,
+    primary key PK_usuarioId(usuarioId),
+    constraint FK_Usuarios_NivelesAcceso foreign key Usuarios(nivelAccesoId)
+		references NivelesAcceso(nivelAccesoId),
+	constraint FK_Usuarios_Empleados foreign key Usuarios(empleadoId)
+		references Empleados(empleadoId)
+);
+
+
+-- ------------------------ Niveles Accesos -----------------------
+create table NivelesAcceso(
+	nivelAccesoId int not null auto_increment,
+    nivelAcceso varchar(40) not null,
+    primary key PK_nivelAccesoId(nivelAccesoId)
+);
+
+-- ------------ Agregar Usuario -----------
+DELIMITER $$
+create procedure sp_agregarUsuario(us varchar(40), con varchar(100), nivAccId int, empId int)
+	BEGIN
+		insert into Usuarios(usuario, contrasenia, nivelAccesoId, empleadoId)values
+			(us, con, nivAccId, empId);
+	END $$
+DELIMITER ;
+
+select*from NivelesAcceso;
+
+-- ----------- Buscar Usuario ------------
+DELIMITER $$
+create procedure sp_buscarUsuario(us varchar(30))
+	BEGIN
+		select*from Usuarios
+			where usuario = us;
+	END $$
+DELIMITER ;
+-- --------- listarNivelAcceso -----------
+DELIMITER $$
+create procedure sp_listarNivelAcceso()
+	BEGIN
+		select*from nivelesAcceso;
+	END $$
+DELIMITER ;
+
+select*from Usuarios;
