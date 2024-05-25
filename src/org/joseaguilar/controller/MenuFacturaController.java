@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,6 +28,7 @@ import org.joseaguilar.model.Cliente;
 import org.joseaguilar.model.Empleado;
 import org.joseaguilar.model.Factura;
 import org.joseaguilar.system.Main;
+import org.joseaguilar.utilis.SuperKinalAlert;
 
 public class MenuFacturaController implements Initializable {
     
@@ -57,10 +59,28 @@ public class MenuFacturaController implements Initializable {
             stage.menuPrincipalView();
         }else if(event.getSource() == btnGuardar){
             if(tfFacturaId.getText().equals("")){
-                agregarFacturas();
-                cargarDatos();
+                if(!tfHora.getText().equals("") && !tfFecha.getText().equals("")){
+                    agregarFacturas();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    cargarDatos();
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfHora.requestFocus();
+                    return;
+                }
+               
             }else{
-                editarFacturas();
+                if(!tfHora.getText().equals("") && !tfTotal.getText().equals("") && !tfFecha.getText().equals("")){
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(406).get() == ButtonType.OK){
+                        editarFacturas();
+                        cargarDatos();
+                    }
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfHora.requestFocus();    
+                    return;
+                }
+                
             }
         }else if(event.getSource() == btnVaciar){
             vaciarCampos();
@@ -93,6 +113,9 @@ public class MenuFacturaController implements Initializable {
         Factura fa = (Factura)tblFacturas.getSelectionModel().getSelectedItem();
         if(fa != null){
             tfFacturaId.setText(Integer.toString(fa.getFacturaId()));
+            tfFecha.setText(fa.getFecha().toString());
+            tfHora.setText(fa.getHora().toString());
+            tfTotal.setText(Double.toString(fa.getTotal()));
             cmbCliente.getSelectionModel().select(obtenerIndexCliente());
             cmbEmpleado.getSelectionModel().select(obtenerIndexEmpleado());
         }

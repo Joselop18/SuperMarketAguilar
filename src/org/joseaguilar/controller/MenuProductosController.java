@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -35,6 +36,7 @@ import org.joseaguilar.model.CategoriaProducto;
 import org.joseaguilar.model.Distribuidor;
 import org.joseaguilar.model.Producto;
 import org.joseaguilar.system.Main;
+import org.joseaguilar.utilis.SuperKinalAlert;
 
 public class MenuProductosController implements Initializable {
     
@@ -83,9 +85,11 @@ public class MenuProductosController implements Initializable {
                     editarProductos();
                 }
             }else if(event.getSource() == btnEliminar){
-                int proId = ((Producto)tblProductos.getSelectionModel().getSelectedItem()).getProductoId();
-                eliminarProducto(proId);
-                cargarDatos();
+                if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
+                    int proId = ((Producto)tblProductos.getSelectionModel().getSelectedItem()).getProductoId();
+                    eliminarProducto(proId);
+                    cargarDatos();
+                }
             }else if(event.getSource() == btnBuscar){
                 Producto producto = buscarProducto();
                 tblProductos.getItems().clear();
