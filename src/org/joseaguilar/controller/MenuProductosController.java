@@ -58,7 +58,7 @@ public class MenuProductosController implements Initializable {
     ComboBox cmbDistribuidor, cmbCategoria;
     
     @FXML
-    Button btnAgregar, btnEliminar, btnRegresar, btnEditar, btnBuscar;
+    Button btnGuardar, btnEliminar, btnRegresar, btnBuscar;
     
     
     @FXML
@@ -76,11 +76,12 @@ public class MenuProductosController implements Initializable {
         try{
             if(event.getSource() == btnRegresar){
             stage.menuPrincipalView();
-            }else if(event.getSource() == btnAgregar){
-                agregarProductos();
-            }else if(event.getSource() == btnEditar){
-                ProductoDTO.getProductoDTO().setProducto((Producto)tblProductos.getSelectionModel().getSelectedItem());
-                editarProductos();
+            }else if(event.getSource() == btnGuardar){
+                if(tfProductoId.getText().equals("")){
+                    agregarProductos();
+                }else{
+                    editarProductos();
+                }
             }else if(event.getSource() == btnEliminar){
                 int proId = ((Producto)tblProductos.getSelectionModel().getSelectedItem()).getProductoId();
                 eliminarProducto(proId);
@@ -92,9 +93,9 @@ public class MenuProductosController implements Initializable {
                     cargarDatos();
                 }else{
                     lblNombre.setText(producto.getNombreProducto());
-                    // InputStream file = producto.getImagenProducto().getBinaryStream();
-                    //Image image = new Image(file);
-                    //imgMostrar.setImage(image);
+                    InputStream file = producto.getImagenProducto().getBinaryStream();
+                    Image image = new Image(file);
+                    imgMostrar.setImage(image);
                     tblProductos.getItems().add(buscarProducto());
                     colProductoId.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("productoId"));
                     colNombre.setCellValueFactory(new PropertyValueFactory<Producto, String>("nombreProducto"));
@@ -144,8 +145,8 @@ public class MenuProductosController implements Initializable {
             colPUnitario.setCellValueFactory(new PropertyValueFactory<Producto, Double>("precioVentaUnitario"));
             colPMayor.setCellValueFactory(new PropertyValueFactory<Producto, Double>("precioVentaMayor"));
             colPCompra.setCellValueFactory(new PropertyValueFactory<Producto, Double>("precioCompra"));
-            colDistribuidor.setCellValueFactory(new PropertyValueFactory<Producto, String>("nombreDistribuidor"));
-            colCategoria.setCellValueFactory(new PropertyValueFactory<Producto, String>("nombreCategoria"));
+            colDistribuidor.setCellValueFactory(new PropertyValueFactory<Producto, String>("distribuidor"));
+            colCategoria.setCellValueFactory(new PropertyValueFactory<Producto, String>("categoria"));
             tblProductos.getSortOrder().add(colProductoId);
         }catch(Exception e){
             e.printStackTrace();
@@ -169,10 +170,11 @@ public class MenuProductosController implements Initializable {
                 double precioVentaUnitario = resultset.getDouble("precioVentaUnitario");
                 double precioVentaMayor = resultset.getDouble("precioVentaMayor");
                 double precioCompra = resultset.getDouble("precioCompra");
+                Blob imagenProducto = resultset.getBlob("imagenProducto");
                 String distribuidor = resultset.getString("nombreDistribuidor");
                 String categoriaProductoS = resultset.getString("nombreCategoria");
                 
-                productos.add(new Producto(productoId, nombre, descripcion, stock, precioVentaUnitario, precioVentaMayor, precioCompra, distribuidor, categoriaProductoS));
+                productos.add(new Producto(productoId, nombre, descripcion, stock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidor, categoriaProductoS));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -221,7 +223,7 @@ public class MenuProductosController implements Initializable {
         int index = 0;
         for(int i = 0 ; i <= cmbCategoria.getItems().size() ; i++){
             String categoriaCmb = cmbCategoria.getItems().get(i).toString();
-            String categoriaTbl = ((Producto)tblProductos.getSelectionModel().getSelectedItems()).getCategoriaProdcutoS();
+            String categoriaTbl = ((Producto)tblProductos.getSelectionModel().getSelectedItems()).getCategoria();
             if(categoriaCmb.equals(categoriaTbl)){
                 index = i;
                 break;
@@ -348,9 +350,85 @@ public class MenuProductosController implements Initializable {
             }
         }
     }
+    
+    public ObservableList<Distribuidor> listarDistribuidores(){
+        ArrayList<Distribuidor> distribuidores = new ArrayList<>();
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarDistribuidor()";
+            statement = conexion.prepareStatement(sql);
+            resultset = statement.executeQuery();
+            
+            while(resultset.next()){
+                int distribuidorId = resultset.getInt("distribuidorId");
+                String nombre = resultset.getString("nombreDistribuidor");
+                String direccion = resultset.getString("direccionDistribuidor");
+                String nit = resultset.getString("nitDistribuidor");
+                String telefono = resultset.getString("telefonoDistribuidor");
+                String web = resultset.getString("web");
+                
+                distribuidores.add(new Distribuidor(distribuidorId, nombre, direccion, nit, telefono, web));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultset != null){
+                    resultset.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+                
+            }
+        }
+        return FXCollections.observableList(distribuidores);
+    }
+    
+    public ObservableList<CategoriaProducto> listarCategoriaProductos(){
+        ArrayList<CategoriaProducto> categoriaProductos = new ArrayList<>();
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarCategoriaProducto()";
+            statement = conexion.prepareStatement(sql);
+            resultset = statement.executeQuery();
+            
+            while(resultset.next()){
+                int categoriaProductosId = resultset.getInt("categoriaProductosId");
+                String nombreCategoria = resultset.getString("nombreCategoria");
+                String descripcionCategoria = resultset.getString("descripcionCategoria");
+                categoriaProductos.add(new CategoriaProducto(categoriaProductosId, nombreCategoria, descripcionCategoria));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultset != null){
+                    resultset.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+                
+            }
+        }
+        return FXCollections.observableList(categoriaProductos);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
+        cmbDistribuidor.setItems(listarDistribuidores());
+        cmbCategoria.setItems(listarCategoriaProductos());
     }
 }

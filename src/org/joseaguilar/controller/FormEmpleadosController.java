@@ -60,7 +60,7 @@ public class FormEmpleadosController implements Initializable {
     public void agregarEmpleado(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_agregarEmpleados(?,?,?,?,?,?,?)";
+            String sql = "call sp_agregarEmpleado(?,?,?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setString(1, tfNombre.getText());
             statement.setString(2, tfApellido.getText());
@@ -89,7 +89,7 @@ public class FormEmpleadosController implements Initializable {
     public void editarEmpleado(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarEmpleados(?,?,?,?,?,?,?,?)";
+            String sql = "call sp_editarEmpleado(?,?,?,?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfEmpleadoId.getText()));
             statement.setString(2, tfNombre.getText());

@@ -61,7 +61,23 @@
             </DropShadow>
          </effect>
       </ComboBox>
-      <Button fx:id="btnRegistar" alignment="CENTER" layoutX="175.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #161616; -fx-background-radius: 15;" text="Registrar" textAlignment="CENTER" textFill="#cd3b3b" wrapText="true">
+      <Button fx:id="btnRegistar" alignment="CENTER" layoutX="269.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #161616; -fx-background-radius: 15;" text="Registrar" textAlignment="CENTER" textFill="#cd3b3b" wrapText="true">
+         <font>
+            <Font name="Elephant" size="16.0" />
+         </font>
+         <effect>
+            <Bloom threshold="0.2">
+               <input>
+                  <DropShadow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </DropShadow>
+               </input>
+            </Bloom>
+         </effect>
+      </Button>
+      <Button fx:id="btnEmpleado" layoutX="117.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: #161616; -fx-background-radius: 15;" text="Agregar Empleado" textAlignment="CENTER" textFill="#60d343" wrapText="true">
          <font>
             <Font name="Elephant" size="16.0" />
          </font>

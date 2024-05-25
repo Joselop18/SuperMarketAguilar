@@ -110,7 +110,7 @@ public class FormCategoriaProductosController implements Initializable {
     public void editarCategoriaProductos(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarCategoriaProductos(?,?,?)";
+            String sql = "call sp_editarCategoriaProducto(?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfCategoriaProductosId.getText()));
             statement.setString(2, tfNombreCategoria.getText());

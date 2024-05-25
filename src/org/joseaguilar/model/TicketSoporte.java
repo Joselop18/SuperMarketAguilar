@@ -1,4 +1,6 @@
+
 package org.joseaguilar.model;
+
 
 public class TicketSoporte {
     private int ticketSoporteId;
@@ -6,26 +8,31 @@ public class TicketSoporte {
     private String estatus;
     private String cliente;
     private int clienteId;
+    private String factura;
     private int facturaId;
 
     public TicketSoporte() {
     }
 
-    public TicketSoporte(int ticketSoporteId, String descripcionTicket, String estatus, String cliente, int facturaId) {
+    public TicketSoporte(int ticketSoporteId, String descripcionTicket, String estatus, String cliente, String factura) {
         this.ticketSoporteId = ticketSoporteId;
         this.descripcionTicket = descripcionTicket;
         this.estatus = estatus;
         this.cliente = cliente;
-        this.facturaId = facturaId;
+        this.clienteId = clienteId;
+        this.factura = factura;
     }
 
     public TicketSoporte(int ticketSoporteId, String descripcionTicket, String estatus, int clienteId, int facturaId) {
         this.ticketSoporteId = ticketSoporteId;
         this.descripcionTicket = descripcionTicket;
         this.estatus = estatus;
+        this.cliente = cliente;
         this.clienteId = clienteId;
         this.facturaId = facturaId;
     }
+    
+    
 
     public int getTicketSoporteId() {
         return ticketSoporteId;
@@ -67,6 +74,14 @@ public class TicketSoporte {
         this.clienteId = clienteId;
     }
 
+    public String getFactura() {
+        return factura;
+    }
+
+    public void setFactura(String factura) {
+        this.factura = factura;
+    }
+
     public int getFacturaId() {
         return facturaId;
     }
@@ -77,6 +92,11 @@ public class TicketSoporte {
 
     @Override
     public String toString() {
-        return "TicketSoporte{" + "ticketSoporteId=" + ticketSoporteId + ", descripcionTicket=" + descripcionTicket + ", estatus=" + estatus + ", cliente=" + cliente + ", clienteId=" + clienteId + ", facturaId=" + facturaId + '}';
-    } 
+        return "ID: " + ticketSoporteId;
+    }
+
+    
+    
+    
+    
 }

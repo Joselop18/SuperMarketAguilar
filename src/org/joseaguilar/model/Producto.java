@@ -1,6 +1,8 @@
+
 package org.joseaguilar.model;
+
 import java.sql.Blob;
-import javafx.scene.image.Image;
+
 
 public class Producto {
     private int productoId;
@@ -8,55 +10,59 @@ public class Producto {
     private String descripcionProducto;
     private int cantidadStock;
     private double precioVentaUnitario;
-    private double precioVenteMayor;
+    private double precioVentaMayor;
     private double precioCompra;
-    private Image imagenProducto;
+    private Blob imagenProducto;
     private int distribuidorId;
     private String distribuidor;
-    private int categoriaProdcutoId;
-    private String categoriaProdcutoS;
+    private int categoriaId;
+    private String categoria;
 
     public Producto() {
         
     }
 
-    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVenteMayor, double precioCompra, Image imagenProducto, int distribuidorId, int categoriaProdcutoId) {
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, Blob imagenProducto, int distribuidorId, int categoriaId) {
         this.productoId = productoId;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.cantidadStock = cantidadStock;
         this.precioVentaUnitario = precioVentaUnitario;
-        this.precioVenteMayor = precioVenteMayor;
+        this.precioVentaMayor = precioVentaMayor;
         this.precioCompra = precioCompra;
         this.imagenProducto = imagenProducto;
         this.distribuidorId = distribuidorId;
-        this.categoriaProdcutoId = categoriaProdcutoId;
+        this.categoriaId = categoriaId;
     }
 
-    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVenteMayor, double precioCompra, Image imagenProducto, String distribuidor, String categoriaProdcutoS) {
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVentaMayor, double precioCompra, Blob imagenProducto, String distribuidor, String categoria) {
         this.productoId = productoId;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.cantidadStock = cantidadStock;
         this.precioVentaUnitario = precioVentaUnitario;
-        this.precioVenteMayor = precioVenteMayor;
+        this.precioVentaMayor = precioVentaMayor;
         this.precioCompra = precioCompra;
         this.imagenProducto = imagenProducto;
         this.distribuidor = distribuidor;
-        this.categoriaProdcutoS = categoriaProdcutoS;
+        this.categoria = categoria;
     }
 
-    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVenteMayor, double precioCompra, String distribuidor, String categoriaProdcutoS) {
+    public Producto(int productoId, String nombreProducto, String descripcionProducto, int cantidadStock, double precioVentaUnitario, double precioVenteMayor, double precioCompra, String distribuidor, String categoria) {
         this.productoId = productoId;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.cantidadStock = cantidadStock;
         this.precioVentaUnitario = precioVentaUnitario;
-        this.precioVenteMayor = precioVenteMayor;
+        this.precioVentaMayor = precioVentaMayor;
         this.precioCompra = precioCompra;
         this.distribuidor = distribuidor;
-        this.categoriaProdcutoS = categoriaProdcutoS;
+        this.categoria = categoria;
     }
+
+    
+    
+    
 
     public int getProductoId() {
         return productoId;
@@ -98,12 +104,12 @@ public class Producto {
         this.precioVentaUnitario = precioVentaUnitario;
     }
 
-    public double getPrecioVenteMayor() {
-        return precioVenteMayor;
+    public double getPrecioVentaMayor() {
+        return precioVentaMayor;
     }
 
-    public void setPrecioVenteMayor(double precioVenteMayor) {
-        this.precioVenteMayor = precioVenteMayor;
+    public void setPrecioVentaMayor(double precioVentaMayor) {
+        this.precioVentaMayor = precioVentaMayor;
     }
 
     public double getPrecioCompra() {
@@ -114,11 +120,11 @@ public class Producto {
         this.precioCompra = precioCompra;
     }
 
-    public Image getImagenProducto() {
+    public Blob getImagenProducto() {
         return imagenProducto;
     }
 
-    public void setImagenProducto(Image imagenProducto) {
+    public void setImagenProducto(Blob imagenProducto) {
         this.imagenProducto = imagenProducto;
     }
 
@@ -138,25 +144,25 @@ public class Producto {
         this.distribuidor = distribuidor;
     }
 
-    public int getCategoriaProdcutoId() {
-        return categoriaProdcutoId;
+    public int getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoriaProdcutoId(int categoriaProdcutoId) {
-        this.categoriaProdcutoId = categoriaProdcutoId;
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
-    public String getCategoriaProdcutoS() {
-        return categoriaProdcutoS;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaProdcutoS(String categoriaProdcutoS) {
-        this.categoriaProdcutoS = categoriaProdcutoS;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "productoId=" + productoId + ", nombreProducto=" + nombreProducto + ", descripcionProducto=" + descripcionProducto + ", cantidadStock=" + cantidadStock + ", precioVentaUnitario=" + precioVentaUnitario + ", precioVenteMayor=" + precioVenteMayor + ", precioCompra=" + precioCompra + ", imagenProducto=" + imagenProducto + ", distribuidorId=" + distribuidorId + ", distribuidor=" + distribuidor + ", categoriaProdcutoId=" + categoriaProdcutoId + ", categoriaProdcutoS=" + categoriaProdcutoS + '}';
+        return "Id: " + productoId + " - "+ nombreProducto;
     }
     
 }

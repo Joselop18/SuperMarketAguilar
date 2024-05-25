@@ -1,10 +1,13 @@
+
 package org.joseaguilar.controller;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -13,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,8 +25,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.model.Cliente;
+import org.joseaguilar.model.Factura;
 import org.joseaguilar.model.TicketSoporte;
 import org.joseaguilar.system.Main;
+import org.joseaguilar.utilis.SuperKinalAlert;
+
 
 public class MenuTicketSoporteController implements Initializable {
     private Main stage;
@@ -32,7 +39,7 @@ public class MenuTicketSoporteController implements Initializable {
     private static ResultSet resultset = null;
     
     @FXML
-    ComboBox cmbEstatus, cmbClientes;
+    ComboBox cmbEstatus, cmbClientes, cmbFacturas;
     
     @FXML 
     Button btnRegresar, btnGuardar, btnVaciar;
@@ -55,10 +62,28 @@ public class MenuTicketSoporteController implements Initializable {
             stage.menuPrincipalView();
         }else if(event.getSource() == btnGuardar){
             if(tfTicketId.getText().equals("")){
-                agregarTicket();
-                cargarDatos();
+                if(!taDescripcion.getText().equals("") && !cmbFacturas.getItems().equals("")){
+                    agregarTicket();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    cargarDatos();
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    taDescripcion.requestFocus();
+                    return;
+                }
+                
+                
             }else{
-                editarTicket();
+                if(!taDescripcion.getText().equals("") && !cmbFacturas.getItems().equals("")){
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(406).get() == ButtonType.OK){
+                        editarTicket();
+                    }
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    taDescripcion.requestFocus();    
+                    return;
+                }
+                
             }
         }else if(event.getSource() == btnVaciar){
             vaciarCampos();
@@ -70,6 +95,7 @@ public class MenuTicketSoporteController implements Initializable {
         taDescripcion.clear();
         cmbEstatus.getSelectionModel().clearSelection();
         cmbClientes.getSelectionModel().clearSelection();
+        cmbFacturas.getSelectionModel().clearSelection();
         
     }
     
@@ -79,7 +105,7 @@ public class MenuTicketSoporteController implements Initializable {
         colDescripcion.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("descripcionTicket"));
         colEstatus.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("estatus"));
         colCliente.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("cliente"));
-        colFactura.setCellValueFactory(new PropertyValueFactory<TicketSoporte, Integer>("facturaId"));
+        colFactura.setCellValueFactory(new PropertyValueFactory<TicketSoporte, Integer>("factura"));
         tblTickets.getSortOrder().add(colTicketId);
     }
     
@@ -90,6 +116,7 @@ public class MenuTicketSoporteController implements Initializable {
             taDescripcion.setText(ts.getDescripcionTicket());
             cmbEstatus.getSelectionModel().select(0);
             cmbClientes.getSelectionModel().select(obtenerIndexCliente());
+            cmbFacturas.getSelectionModel().select(obtenerIndexFactura());
         }
     }
     
@@ -97,8 +124,22 @@ public class MenuTicketSoporteController implements Initializable {
         int index = 0;
         for(int i = 0 ; i <= cmbClientes.getItems().size() ; i++){
             String clienteCmb = cmbClientes.getItems().get(i).toString();
-            String clienteTbl = ((TicketSoporte)tblTickets.getSelectionModel().getSelectedItems()).getCliente();
+            String clienteTbl = ((TicketSoporte)tblTickets.getSelectionModel().getSelectedItem()).getCliente();
             if(clienteCmb.equals(clienteTbl)){
+                index = i;
+                break;
+            }
+            
+        }
+        return index;
+    }
+    
+    public int obtenerIndexFactura(){
+        int index = 0;
+        for(int i = 0 ; i < cmbFacturas.getItems().size() ; i++){
+            String facturaCmb = cmbFacturas.getItems().get(i).toString();
+            String facturaTbl = ((TicketSoporte)tblTickets.getSelectionModel().getSelectedItem()).getFactura();
+            if(facturaCmb.equals(facturaTbl)){
                 index = i;
                 break;
             }
@@ -125,9 +166,9 @@ public class MenuTicketSoporteController implements Initializable {
                 String descripcion = resultset.getString("descripcionTicket");
                 String estatus = resultset.getString("estatus");
                 String cliente = resultset.getString("cliente");
-                int facturaId = resultset.getInt("facturaId");
+                String factura = resultset.getString("factura");
                 
-                tickets.add(new TicketSoporte(ticketSoporteId, descripcion, estatus, cliente, facturaId));
+                tickets.add(new TicketSoporte(ticketSoporteId, descripcion, estatus, cliente, factura));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -148,6 +189,46 @@ public class MenuTicketSoporteController implements Initializable {
         }
         
         return FXCollections.observableList(tickets);
+    }
+    
+    public ObservableList<Factura> listarFacturas(){
+        ArrayList<Factura> facturas = new ArrayList<>();
+        try{
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_listarFactura()";
+            statement = conexion.prepareStatement(sql);
+            resultset = statement.executeQuery();
+            
+            while(resultset.next()){
+                int facturaId = resultset.getInt("facturaId");
+                Date fecha = resultset.getDate("fecha");
+                Time hora = resultset.getTime("hora");
+                String cliente = resultset.getString("cliente");
+                String empleado = resultset.getString("empleado");
+                Double total = resultset.getDouble("total");
+
+                
+                facturas.add(new Factura(facturaId, fecha.toLocalDate(), hora.toLocalTime(), cliente, empleado, total));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                if(resultset != null){
+                    resultset.close();
+                }
+                if(statement != null){
+                    statement.close();
+                }
+                if(conexion != null){
+                    conexion.close();
+                }
+            }catch(SQLException e){
+                
+            }
+        }
+        
+        return FXCollections.observableList(facturas);
     }
     
     public ObservableList<Cliente> listarClientes(){
@@ -196,7 +277,7 @@ public class MenuTicketSoporteController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setString(1, taDescripcion.getText());
             statement.setInt(2, ((Cliente)cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(3, 0);
+            statement.setInt(3, ((Factura)cmbFacturas.getSelectionModel().getSelectedItem()).getFacturaId());
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -224,7 +305,7 @@ public class MenuTicketSoporteController implements Initializable {
             statement.setString(2, taDescripcion.getText());
             statement.setString(3, cmbEstatus.getSelectionModel().getSelectedItem().toString());
             statement.setInt(4, ((Cliente)cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(5, 9);
+            statement.setInt(5, ((Factura)cmbFacturas.getSelectionModel().getSelectedItem()).getFacturaId());
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -241,11 +322,12 @@ public class MenuTicketSoporteController implements Initializable {
             }
         }
     }
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarCMBEstatus();
         cmbClientes.setItems(listarClientes());
+        cmbFacturas.setItems(listarFacturas());
         cargarDatos();
     }    
 

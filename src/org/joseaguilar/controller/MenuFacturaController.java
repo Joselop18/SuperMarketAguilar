@@ -83,8 +83,8 @@ public class MenuFacturaController implements Initializable {
         colFacturaId.setCellValueFactory(new PropertyValueFactory<Factura, Integer>("facturaId"));
         colFecha.setCellValueFactory(new PropertyValueFactory<Factura, LocalDate>("fecha"));
         colHora.setCellValueFactory(new PropertyValueFactory<Factura, LocalTime>("hora"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<Factura, String>("clienteId"));
-        colEmpleado.setCellValueFactory(new PropertyValueFactory<Factura, String>("empleadoId"));
+        colCliente.setCellValueFactory(new PropertyValueFactory<Factura, String>("cliente"));
+        colEmpleado.setCellValueFactory(new PropertyValueFactory<Factura, String>("empleado"));
         colTotal.setCellValueFactory(new PropertyValueFactory<Factura, Double>("total"));
         tblFacturas.getSortOrder().add(colFacturaId);
     }
@@ -100,9 +100,9 @@ public class MenuFacturaController implements Initializable {
     
     public int obtenerIndexCliente(){
         int index = 0;
-        for(int i = 0 ; i <= cmbCliente.getItems().size() ; i++){
+        for(int i = 0 ; i < cmbCliente.getItems().size() ; i++){
             String clienteCmb = cmbCliente.getItems().get(i).toString();
-            String clienteTbl = ((Factura)tblFacturas.getSelectionModel().getSelectedItems()).getCliente();
+            String clienteTbl = ((Factura)tblFacturas.getSelectionModel().getSelectedItem()).getCliente();
             if(clienteCmb.equals(clienteTbl)){
                 index = i;
                 break;
@@ -114,9 +114,9 @@ public class MenuFacturaController implements Initializable {
     
     public int obtenerIndexEmpleado(){
         int index = 0;
-        for(int i = 0 ; i <= cmbEmpleado.getItems().size() ; i++){
+        for(int i = 0 ; i < cmbEmpleado.getItems().size() ; i++){
             String empleadoCmb = cmbEmpleado.getItems().get(i).toString();
-            String empleadoTbl = ((Factura)tblFacturas.getSelectionModel().getSelectedItems()).getEmpleado();
+            String empleadoTbl = ((Factura)tblFacturas.getSelectionModel().getSelectedItem()).getEmpleado();
             if(empleadoCmb.equals(empleadoTbl)){
                 index = i;
                 break;
@@ -138,8 +138,8 @@ public class MenuFacturaController implements Initializable {
                 int facturaId = resultset.getInt("facturaId");
                 Date fecha = resultset.getDate("fecha");
                 Time hora = resultset.getTime("hora");
-                String cliente = resultset.getString("clienteId");
-                String empleado = resultset.getString("empleadoId");
+                String cliente = resultset.getString("cliente");
+                String empleado = resultset.getString("empleado");
                 Double total = resultset.getDouble("total");
 
                 
@@ -278,14 +278,12 @@ public class MenuFacturaController implements Initializable {
     public void editarFacturas(){
         try{
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarFactura(?, ?, ?, ?, ?, ?)";
+            String sql = "call sp_editarFactura(?, ?, ?, ?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfFacturaId.getText()));
-            statement.setDate(2, Date.valueOf(tfFecha.getText()));
-            statement.setTime(3, Time.valueOf(tfHora.getText()));
-            statement.setInt(4, ((Cliente)cmbCliente.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(5, ((Empleado)cmbEmpleado.getSelectionModel().getSelectedItem()).getEmpleadoId());
-            statement.setDouble(6, 0);
+            statement.setInt(2, ((Cliente)cmbCliente.getSelectionModel().getSelectedItem()).getClienteId());
+            statement.setInt(3, ((Empleado)cmbEmpleado.getSelectionModel().getSelectedItem()).getEmpleadoId());
+            statement.setDouble(4, 0);
             statement.execute();
         }catch(SQLException e){
             System.out.println(e.getMessage());

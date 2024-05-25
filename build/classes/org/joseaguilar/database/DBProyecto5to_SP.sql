@@ -65,6 +65,8 @@ BEGIN
 END $$
 DELIMITER ;
 
+call sp_agregarCargo('Supervisor', 'Supervisa');
+
 DELIMITER $$
 create procedure sp_listarCargo()
 BEGIN
@@ -167,14 +169,7 @@ delimiter ;
 delimiter $$
 create procedure sp_listarDistribuidor()
 	begin
-		select
-			D.distribuidorId,
-			D.nombreDistribuidor,
-			D.direccionDistribuidor,
-			D.nitDistribuidor,
-			D.telefonoDistribuidor,
-			D.web
-				from Distribuidores D;
+		select * from Distribuidores;
     end $$
 delimiter ;
 
@@ -214,10 +209,10 @@ delimiter ;
 
 -- *** Empleados *** --
 DELIMITER $$
-create procedure sp_agregarEmpleado(nomEmp varchar(30), apeEmp varchar(30), sue decimal(10,2), horEnt time, horSal time, carId int)
+create procedure sp_agregarEmpleado(nomEmp varchar(30), apeEmp varchar(30), sue decimal(10,2), horEnt time, horSal time, carId int, encarId int)
 BEGIN
-	insert into Empleados(nombreEmpleado,apellidoEmpleado,sueldo,horaEntrada,horaSalida,cargoId) values
-		(nomEmp, apeEmp, sue, horEnt, horSal, carId);
+	insert into Empleados(nombreEmpleado,apellidoEmpleado,sueldo,horaEntrada,horaSalida,cargoId, encargadoId) values
+		(nomEmp, apeEmp, sue, horEnt, horSal, carId, encarId);
 END $$
 DELIMITER ;
 
@@ -276,7 +271,7 @@ DELIMITER ;
 -- =====================================================================================================================
 -- Agregar
 delimiter $$
-create procedure sp_agregarCategoriaProducto(in nombC varchar(30), descC varchar(100))
+create procedure sp_agregarCategoriaProductos(in nombC varchar(30), descC varchar(100))
 	begin
 		insert into CategoriaProductos(nombreCategoria, descripcionCategoria) values
 			(nombC, descC);
@@ -342,7 +337,11 @@ delimiter ;
 delimiter $$
 create procedure sp_listarProducto()
 	begin 
-		select * from Productos;
+		select P.productoId, P.nombreProducto, P.descripcionProducto, P.cantidadStock, P.precioVentaUnitario, P.precioVentaMayor, P.precioCompra, P.imagenProducto,
+			D.nombreDistribuidor as 'distribuidor', 
+            CP.nombreCategoria as 'categoria' from Productos P
+            join Distribuidores D on P.distribuidorId =  D.distribuidorId
+            join CategoriaProductos CP on P.categoriaProductosId = CP.categoriaProductosId;
     end $$
 delimiter ;
 
@@ -445,17 +444,21 @@ delimiter ;
 
 -- *** Facturas *** --
 DELIMITER $$
-create procedure sp_agregarFactura(cliId int, empId int)
+create procedure sp_agregarFactura(fe date, ho time, cliId int, empId int, tot decimal(10, 2))
 BEGIN
-	insert into Facturas(fecha, hora, clienteId, empleadoId) 
-    values(date(now()), time(now()), cliId, empId);
+	insert into Facturas(fecha, hora, clienteId, empleadoId, total) 
+    values(fe, ho, cliId, empId, tot);
 END $$
 DELIMITER ;
 
 DELIMITER $$
 create procedure sp_listarFactura()
 BEGIN
-	select*from Facturas;
+	select F.facturaId, F.fecha, F.hora, F.total,
+        C.nombre as 'cliente',
+        E.nombreEmpleado as 'empleado' from Facturas F
+        join Clientes C on C.clienteId = F.clienteId
+        join Empleados E on E.empleadoId = F.empleadoId;
 END $$
 DELIMITER ;
 
@@ -483,14 +486,13 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-create procedure sp_editarFactura(facId INT,fec date, hor time, cliId int, empId int)
+create procedure sp_editarFactura(facId INT, cliId int, empId int, tot decimal(10, 2))
 BEGIN
 	update Facturas
 		set
-			fecha = fec,
-			hora = hor,
             clienteId = cliId,
-            empleadoId = empId
+            empleadoId = empId,
+            total = tot
 			where facturaId = facId;
 END $$
 DELIMITER ;
@@ -567,9 +569,10 @@ DELIMITER $$
 create procedure sp_listarTicketSoporte()
 	BEGIN
 		select TS.ticketSoporteId, TS.descripcionTicket, TS.estatus,
-			CONCAT('ID: ',C.clienteId, '| ' , C.nombre, ' ' , C.apellido) AS 'cliente',
-			TS.facturaId from TicketSoporte TS
-        join Clientes C on TS.clienteId = C.clienteId;
+				concat('Id: ', C.clienteId, ' - ', C.nombre, ' ', C.apellido) as 'Cliente',
+                concat('Id: ', F.facturaId, ' - ', F.fecha, ' - ', F.hora, ' - ', F.total) as 'Factura' from TicketSoporte TS
+		join Clientes C on TS.clienteId = C.clienteId
+        join Facturas F on TS.facturaId = F.facturaId;
 	END $$
 DELIMITER ;
  
@@ -709,6 +712,13 @@ DELIMITER ;
 set global time_zone = '-6:00';
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-- ------------------------ Niveles Accesos -----------------------
+create table NivelesAcceso(
+	nivelAccesoId int not null auto_increment,
+    nivelAcceso varchar(40) not null,
+    primary key PK_nivelAccesoId(nivelAccesoId)
+);
 -- ---------------------------- Usuarios --------------------------
 create table Usuarios(
 	usuarioId int not null auto_increment,
@@ -724,13 +734,6 @@ create table Usuarios(
 );
 
 
--- ------------------------ Niveles Accesos -----------------------
-create table NivelesAcceso(
-	nivelAccesoId int not null auto_increment,
-    nivelAcceso varchar(40) not null,
-    primary key PK_nivelAccesoId(nivelAccesoId)
-);
-
 -- ------------ Agregar Usuario -----------
 DELIMITER $$
 create procedure sp_agregarUsuario(us varchar(40), con varchar(100), nivAccId int, empId int)
@@ -739,6 +742,8 @@ create procedure sp_agregarUsuario(us varchar(40), con varchar(100), nivAccId in
 			(us, con, nivAccId, empId);
 	END $$
 DELIMITER ;
+
+call sp_agregarUsuario('Jaguilar', '1234', 1, 2);
 
 select*from NivelesAcceso;
 
@@ -759,3 +764,4 @@ create procedure sp_listarNivelAcceso()
 DELIMITER ;
 
 select*from Usuarios;
+select * from Empleados;
