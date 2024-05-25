@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,6 +22,7 @@ import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.dto.ClienteDTO;
 import org.joseaguilar.model.Cliente;
 import org.joseaguilar.system.Main;
+import org.joseaguilar.utilis.SuperKinalAlert;
 
 public class MenuClientesController implements Initializable {
     private Main stage;
@@ -180,9 +182,11 @@ public class MenuClientesController implements Initializable {
         }else if(event.getSource() == btnRegresar){
             stage.menuPrincipalView();
         }else if(event.getSource() == btnEliminar){
-            int cliId = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
-            eliminarCliente(cliId);
-            cargarLista();
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
+                int cliId = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
+                eliminarCliente(cliId);
+                cargarLista();
+            }
         }else if (event.getSource() == btnBuscar){
             tblClientes.getItems().clear();
             if(tfClienteId.getText().equals("")){

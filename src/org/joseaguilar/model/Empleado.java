@@ -39,6 +39,13 @@ public class Empleado {
         this.encargado = encargado;
     }
     
+    public Empleado(int empleadoId, String nombreEmpleado, String encargado) {
+        this.empleadoId = empleadoId;
+        this.nombreEmpleado = nombreEmpleado;
+        this.encargado = encargado;
+    }
+
+    
     public int getEmpleadoId() {
         return empleadoId;
     }
@@ -118,6 +125,7 @@ public class Empleado {
     public void setEncargado(String encargado) {
         this.encargado = encargado;
     }
+    
 
     @Override
     public String toString() {

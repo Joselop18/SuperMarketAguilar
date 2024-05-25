@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,6 +22,7 @@ import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.dto.DistribuidorDTO;
 import org.joseaguilar.model.Distribuidor;
 import org.joseaguilar.system.Main;
+import org.joseaguilar.utilis.SuperKinalAlert;
 
 public class MenuDistribuidoresController implements Initializable {
     
@@ -180,9 +182,11 @@ public class MenuDistribuidoresController implements Initializable {
         }else if(event.getSource() == btnRegresar){
             stage.menuPrincipalView();
         }else if(event.getSource() == btnEliminar){
-            int dirId = ((Distribuidor)tblDistribuidores.getSelectionModel().getSelectedItem()).getDistribuidorId();
-            eliminarDistribuidor(dirId);
-            cargarLista();
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
+                int dirId = ((Distribuidor)tblDistribuidores.getSelectionModel().getSelectedItem()).getDistribuidorId();
+                eliminarDistribuidor(dirId);
+                cargarLista();
+            }
         }else if (event.getSource() == btnBuscar){
             tblDistribuidores.getItems().clear();
             if(tfDistribuidorId.getText().equals("")){

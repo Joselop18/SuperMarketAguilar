@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.dto.ClienteDTO;
 import org.joseaguilar.model.Cliente;
 import org.joseaguilar.system.Main;
+import org.joseaguilar.utilis.SuperKinalAlert;
 
 public class FormClientesController implements Initializable {
     private Main stage;    
@@ -63,13 +65,28 @@ public class FormClientesController implements Initializable {
             ClienteDTO.getClienteDTO().setCliente(null);
         }else if(event.getSource() == btnAgregar){
             if(op == 1){
-                agregarCliente();
-                ClienteDTO.getClienteDTO().setCliente(null);
-                stage.menuClientesView();
+                if(!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")){
+                    agregarCliente();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    ClienteDTO.getClienteDTO().setCliente(null);
+                    stage.menuClientesView();
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfNombre.requestFocus();
+                    return;
+                }
             }else if(op == 2){
-                editarCliente();
-                ClienteDTO.getClienteDTO().setCliente(null);
-                stage.menuClientesView();
+                if(!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")){
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(406).get() == ButtonType.OK){
+                        editarCliente();
+                        ClienteDTO.getClienteDTO().setCliente(null);
+                        stage.menuClientesView();
+                    }
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfNombre.requestFocus();    
+                    return;
+                }
             }
             
             stage.menuClientesView();

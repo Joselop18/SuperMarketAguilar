@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
@@ -20,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.model.Compra;
 import org.joseaguilar.system.Main;
+import org.joseaguilar.utilis.SuperKinalAlert;
 
 public class MenuComprasController implements Initializable {
     
@@ -221,19 +223,39 @@ public class MenuComprasController implements Initializable {
             stage.menuPrincipalView();
         }else if(event.getSource() == btnGuardar){
             if(tfCompraId.getText().equals("")){
-                agregarCompra();
-                cargarLista();
+                if(!tfFecha.getText().equals("") && !tfTotal.getText().equals("")){
+                    agregarCompra();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    cargarLista();
+                    stage.menuCompraView();
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfFecha.requestFocus();
+                    return;
+                }
+                
+                
             }else{
-                editarCompra();
+                if(!tfFecha.getText().equals("") && !tfTotal.getText().equals("")){
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(406).get() == ButtonType.OK){
+                        editarCompra();
+                    }
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfFecha.requestFocus();    
+                    return;
+                }
+                
             }
         }else if(event.getSource() == btnVaciar){
             vaciarCampos();
         }else if(event.getSource() == btnEliminar){
-            int comId = ((Compra)tblCompras.getSelectionModel().getSelectedItem()).getCompraId();
-            eliminarCompras(comId);
-            cargarLista();
-        }
-            
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
+                int comId = ((Compra)tblCompras.getSelectionModel().getSelectedItem()).getCompraId();
+                eliminarCompras(comId);
+                cargarLista();
+            }
+        }    
     }       
 
     public Main getStage() {

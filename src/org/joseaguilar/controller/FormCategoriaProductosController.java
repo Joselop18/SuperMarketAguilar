@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -17,6 +18,7 @@ import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.system.Main;
 import org.joseaguilar.dto.CategoriaProductoDTO;
 import org.joseaguilar.model.CategoriaProducto;
+import org.joseaguilar.utilis.SuperKinalAlert;
 
 public class FormCategoriaProductosController implements Initializable {
     private Main stage;    
@@ -71,18 +73,31 @@ public class FormCategoriaProductosController implements Initializable {
             stage.menuCategoriaProductosView();
         }else if(event.getSource() == btnAgregar){
             if(op == 1){
-                agregarCategoriaProductos();
-                CategoriaProductoDTO.getCategoriaProductoDTO().setCategoriaProducto(null);
-                stage.menuCategoriaProductosView();
+                if(!tfNombreCategoria.getText().equals("") && !taDescripcionCategoria.getText().equals("")){
+                    agregarCategoriaProductos();
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(401);
+                    CategoriaProductoDTO.getCategoriaProductoDTO().setCategoriaProducto(null);
+                    stage.menuCategoriaProductosView();
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfNombreCategoria.requestFocus();
+                    return;
+                }
             }else if(op == 2){
-                editarCategoriaProductos();
-                CategoriaProductoDTO.getCategoriaProductoDTO().setCategoriaProducto(null);
-                stage.menuCategoriaProductosView();
+                if(!tfNombreCategoria.getText().equals("") && !taDescripcionCategoria.getText().equals("")){
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(406).get() == ButtonType.OK){
+                        editarCategoriaProductos();
+                        CategoriaProductoDTO.getCategoriaProductoDTO().setCategoriaProducto(null);
+                        stage.menuCategoriaProductosView();
+                    }
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertaInfo(400);
+                    tfNombreCategoria.requestFocus();    
+                    return;
+                }
             }
-            
             stage.menuCategoriaProductosView();
         }
-      
     }
     
     public void agregarCategoriaProductos(){
