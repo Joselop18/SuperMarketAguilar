@@ -22,7 +22,7 @@ public class Main extends Application {
         Image icon = new Image("org/joseaguilar/image/Icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("SuperMarket Aguilar's");
-        menuPrincipalView();
+        loginView();
         stage.show();
     }
     
