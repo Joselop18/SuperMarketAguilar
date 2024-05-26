@@ -62,7 +62,6 @@ public class MenuProductosController implements Initializable {
     @FXML
     Button btnGuardar, btnEliminar, btnRegresar, btnBuscar;
     
-    
     @FXML
     ImageView imgCargar, imgMostrar;
     
@@ -88,13 +87,13 @@ public class MenuProductosController implements Initializable {
                 if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
                     int proId = ((Producto)tblProductos.getSelectionModel().getSelectedItem()).getProductoId();
                     eliminarProducto(proId);
-                    cargarDatos();
+                    cargarDato();
                 }
             }else if(event.getSource() == btnBuscar){
                 Producto producto = buscarProducto();
                 tblProductos.getItems().clear();
                 if(tfProductoId.getText().equals("")){
-                    cargarDatos();
+                    cargarDato();
                 }else{
                     lblNombre.setText(producto.getNombreProducto());
                     InputStream file = producto.getImagenProducto().getBinaryStream();
@@ -139,7 +138,7 @@ public class MenuProductosController implements Initializable {
         
     }
     
-    public void cargarDatos(){
+    public void cargarDato(){
         try{
             tblProductos.setItems(listarProductos());
             colProductoId.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("productoId"));
@@ -155,7 +154,19 @@ public class MenuProductosController implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
     
+    public void cargarDatos(Producto producto){
+        tfProductoId.setText(Integer.toString(producto.getProductoId()));
+        tfNombre.setText(producto.getNombreProducto());
+        taDescripcion.setText(producto.getDescripcionProducto());
+        tfStock.setText(Integer.toString(producto.getCantidadStock()));
+        tfPUnitario.setText(Double.toString(producto.getPrecioVentaUnitario()));
+        tfPMayor.setText(Double.toString(producto.getPrecioVentaMayor()));
+        tfPCompra.setText(Double.toString(producto.getPrecioCompra()));
+        cmbDistribuidor.getSelectionModel().select(obtenerIndexDistribuidor());
+        cmbCategoria.getSelectionModel().select(obtenerIndexCategoriaProductos());
+
     }
     
     public ObservableList<Producto> listarProductos(){
@@ -431,8 +442,10 @@ public class MenuProductosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
-        cmbDistribuidor.setItems(listarDistribuidores());
+        if(ProductoDTO.getProductoDTO().getProducto() != null){
+            cargarDatos(ProductoDTO.getProductoDTO().getProducto());
+        }
         cmbCategoria.setItems(listarCategoriaProductos());
+        cmbDistribuidor.setItems(listarDistribuidores());
     }
 }

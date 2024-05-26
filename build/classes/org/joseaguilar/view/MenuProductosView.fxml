@@ -11,21 +11,21 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="760.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joseaguilar.controller.MenuProductosController">
+<AnchorPane id="AnchorPane" prefHeight="760.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.joseaguilar.controller.MenuProductosController">
    <children>
       <ImageView fitHeight="760.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/FondoMenuProductos.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="tfNombre" layoutX="31.0" layoutY="71.0" prefHeight="40.0" prefWidth="227.0" />
-      <TextField fx:id="tfStock" layoutX="31.0" layoutY="190.0" prefHeight="40.0" prefWidth="227.0" />
-      <TextField fx:id="tfPunitario" layoutX="972.0" layoutY="96.0" prefHeight="40.0" prefWidth="191.0" />
-      <TextField fx:id="tfPMayor" layoutX="972.0" layoutY="260.0" prefHeight="40.0" prefWidth="191.0" />
-      <TextField fx:id="tfPCompra" layoutX="972.0" layoutY="416.0" prefHeight="40.0" prefWidth="191.0" />
-      <TextArea fx:id="taDescripcion" layoutX="487.0" layoutY="287.0" prefHeight="106.0" prefWidth="288.0" />
-      <ComboBox fx:id="cmbDistribuidor" layoutX="34.0" layoutY="400.0" prefHeight="33.0" prefWidth="242.0" />
-      <ComboBox fx:id="cmbCategoria" layoutX="39.0" layoutY="300.0" prefHeight="33.0" prefWidth="242.0" />
+      <TextField fx:id="tfNombre" layoutX="35.0" layoutY="131.0" prefHeight="25.0" prefWidth="220.0" />
+      <TextField fx:id="tfStock" layoutX="31.0" layoutY="207.0" prefHeight="24.0" prefWidth="227.0" />
+      <TextField fx:id="tfPunitario" layoutX="972.0" layoutY="64.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="tfPMayor" layoutX="966.0" layoutY="175.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="tfPCompra" layoutX="966.0" layoutY="288.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextArea fx:id="taDescripcion" layoutX="456.0" layoutY="275.0" prefHeight="106.0" prefWidth="288.0" />
+      <ComboBox fx:id="cmbDistribuidor" layoutX="34.0" layoutY="368.0" prefHeight="24.0" prefWidth="242.0" />
+      <ComboBox fx:id="cmbCategoria" layoutX="34.0" layoutY="288.0" prefHeight="24.0" prefWidth="242.0" />
       <TableView fx:id="tblProductos" layoutX="286.0" layoutY="454.0" prefHeight="292.0" prefWidth="649.0">
         <columns>
           <TableColumn fx:id="colProductoId" prefWidth="75.0" text="productoId" />
@@ -39,7 +39,7 @@
             <TableColumn fx:id="colCategoria" prefWidth="83.0" text="categoria" />
         </columns>
       </TableView>
-      <TextField fx:id="tfProductoId" editable="false" layoutX="546.0" layoutY="197.0" prefHeight="25.0" prefWidth="152.0" promptText="Id del producto" />
+      <TextField fx:id="tfProductoId" editable="false" layoutX="31.0" layoutY="52.0" prefHeight="25.0" prefWidth="242.0" promptText="Id del producto" />
       <TextField fx:id="tfBuscar" layoutX="347.0" layoutY="416.0" prefHeight="25.0" prefWidth="261.0" promptText="Id del producto que desea buscar:" />
       <Button fx:id="btnBuscar" layoutX="631.0" layoutY="416.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="44.0" />
       <ImageView disable="true" fitHeight="25.0" fitWidth="24.0" layoutX="641.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
@@ -47,13 +47,13 @@
             <Image url="@../image/Lupa.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnGuardar" layoutX="151.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Guardar" />
-      <Button fx:id="btnReporte" layoutX="151.0" layoutY="615.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Reporte" />
-      <Button fx:id="btnEliminar" layoutX="151.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Eliminar" />
-      <Button fx:id="btnVaciar" layoutX="156.0" layoutY="572.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Vaciar" />
-      <Button fx:id="btnRegresar" layoutX="149.0" layoutY="659.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Regresar" />
-      <ImageView fx:id="imgMostrar" fitHeight="150.0" fitWidth="200.0" layoutX="968.0" layoutY="477.0" onDragDropped="#handleOnDrop" onDragOver="#handleOnDrag" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="imgCargar" fitHeight="150.0" fitWidth="200.0" layoutX="968.0" layoutY="584.0" onDragDropped="#handleOnDrop" onDragOver="#handleOnDrag" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="lblNombre" layoutX="834.0" layoutY="409.0" prefHeight="33.0" prefWidth="112.0" text="Label" />
+      <Button fx:id="btnGuardar" layoutX="39.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Guardar" />
+      <Button fx:id="btnReporte" layoutX="31.0" layoutY="494.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Reporte" />
+      <Button fx:id="btnEliminar" layoutX="115.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Eliminar" />
+      <Button fx:id="btnVaciar" layoutX="186.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Vaciar" />
+      <Button fx:id="btnRegresar" layoutX="113.0" layoutY="494.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Regresar" />
+      <ImageView fx:id="imgCargar" fitHeight="150.0" fitWidth="150.0" layoutX="1010.0" layoutY="432.0" onDragDropped="#handleOnDrop" onDragOver="#handleOnDrag" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgMostrar" fitHeight="178.0" fitWidth="180.0" layoutX="1000.0" layoutY="418.0" onDragDropped="#handleOnDrop" onDragOver="#handleOnDrag" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="lblNombre" layoutX="995.0" layoutY="628.0" prefHeight="33.0" prefWidth="191.0" text="Label" />
    </children>
 </AnchorPane>
