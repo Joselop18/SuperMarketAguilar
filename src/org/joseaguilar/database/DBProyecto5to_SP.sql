@@ -507,6 +507,8 @@ begin
 		(factId, prodId);
 end $$
 DELIMITER ;
+
+call sp_AgregarDetalleFactura;
  
 DELIMITER $$
 create procedure sp_ListarDetalleFactura()
@@ -765,3 +767,14 @@ DELIMITER ;
 
 select*from Usuarios;
 select * from Empleados;
+
+select * from Facturas;
+select * from Productos;
+select * from DetalleFactura;
+select * from Empleados;
+
+
+select* from DetalleFactura DF
+join Productos P on DF.productoId = P.productoId
+join Facturas F on DF.facturaId = F.facturaid
+join Clientes C on F.clienteId = C.clienteId
