@@ -48,7 +48,7 @@
          </image>
       </ImageView>
       <Button fx:id="btnGuardar" layoutX="39.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Guardar" />
-      <Button fx:id="btnReporte" layoutX="31.0" layoutY="494.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Reporte" />
+      <Button fx:id="btnReporte" layoutX="31.0" layoutY="494.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Reporte" />
       <Button fx:id="btnEliminar" layoutX="115.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #237092;" text="Eliminar" />
       <Button fx:id="btnVaciar" layoutX="186.0" layoutY="456.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Vaciar" />
       <Button fx:id="btnRegresar" layoutX="113.0" layoutY="494.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 10; -fx-background-color: #F98F4B;" text="Regresar" />

@@ -35,6 +35,7 @@ import org.joseaguilar.dto.ProductoDTO;
 import org.joseaguilar.model.CategoriaProducto;
 import org.joseaguilar.model.Distribuidor;
 import org.joseaguilar.model.Producto;
+import org.joseaguilar.report.GenerarReporte;
 import org.joseaguilar.system.Main;
 import org.joseaguilar.utilis.SuperKinalAlert;
 
@@ -60,7 +61,7 @@ public class MenuProductosController implements Initializable {
     ComboBox cmbDistribuidor, cmbCategoria;
     
     @FXML
-    Button btnGuardar, btnEliminar, btnRegresar, btnBuscar;
+    Button btnGuardar, btnEliminar, btnRegresar, btnBuscar, btnReporte;
     
     @FXML
     ImageView imgCargar, imgMostrar;
@@ -110,6 +111,8 @@ public class MenuProductosController implements Initializable {
                     colDistribuidor.setCellValueFactory(new PropertyValueFactory<Producto, String>("distribuidorId"));
                     colCategoria.setCellValueFactory(new PropertyValueFactory<Producto, String>("categoriaProductosId"));
                 }
+            }else if(event.getSource() == btnReporte){
+                GenerarReporte.getInstance().generarProductos();
             }
             
         }catch(Exception e){

@@ -161,12 +161,13 @@ public class MenuFacturaController implements Initializable {
                 int facturaId = resultset.getInt("facturaId");
                 Date fecha = resultset.getDate("fecha");
                 Time hora = resultset.getTime("hora");
+                Double total = resultset.getDouble("total");
                 String cliente = resultset.getString("cliente");
                 String empleado = resultset.getString("empleado");
-                Double total = resultset.getDouble("total");
+                String producto = resultset.getString("producto");
 
                 
-                facturas.add(new Factura(facturaId, fecha.toLocalDate(), hora.toLocalTime(), cliente, empleado, total));
+                facturas.add(new Factura(facturaId, fecha.toLocalDate(), hora.toLocalTime(), total, cliente, empleado, producto));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());

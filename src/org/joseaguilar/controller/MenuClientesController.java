@@ -21,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.joseaguilar.dao.Conexion;
 import org.joseaguilar.dto.ClienteDTO;
 import org.joseaguilar.model.Cliente;
+import org.joseaguilar.report.GenerarReporte;
 import org.joseaguilar.system.Main;
 import org.joseaguilar.utilis.SuperKinalAlert;
 
@@ -38,7 +39,7 @@ public class MenuClientesController implements Initializable {
     TableColumn colClienteId, colNombre, colApellido, colTelefono, colDireccion, colNIT;
         
     @FXML
-    Button btnAgregar, btnEditar, btnRegresar, btnEliminar, btnBuscar;
+    Button btnAgregar, btnEditar, btnRegresar, btnEliminar, btnBuscar, btnVerClientes;
     
     @FXML
     TextField tfClienteId;
@@ -200,6 +201,8 @@ public class MenuClientesController implements Initializable {
                 colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
                 colNIT.setCellValueFactory(new PropertyValueFactory<Cliente, String>("NIT"));
             }
+        }else if(event.getSource() == btnVerClientes){
+            GenerarReporte.getInstance().generarClientes();
         }
     }   
 }

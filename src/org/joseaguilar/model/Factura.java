@@ -11,27 +11,32 @@ public class Factura {
     private String cliente;
     private int empleadoId;
     private String empleado;
+    private int productoId;
+    private String nombreProducto;
 
     public Factura() {
     }
 
-    public Factura(int facturaId, LocalDate fecha, LocalTime hora, double total, int clienteId, int empleadoId) {
+    public Factura(int facturaId, LocalDate fecha, LocalTime hora, double total, int clienteId, int empleadoId, int productoId) {
         this.facturaId = facturaId;
         this.fecha = fecha;
         this.hora = hora;
         this.total = total;
         this.clienteId = clienteId;
         this.empleadoId = empleadoId;
+        this.productoId = productoId;
     }
 
-    public Factura(int facturaId,  LocalDate fecha, LocalTime hora, String cliente, String empleado, double total) {
+    public Factura(int facturaId,  LocalDate fecha, LocalTime hora, double total ,String cliente, String empleado, String nombreProducto) {
         this.facturaId = facturaId;
         this.fecha = fecha;
         this.hora = hora;
+        this.total = total;
         this.cliente = cliente;
         this.empleado = empleado;
-        this.total = total;
+        this.nombreProducto = nombreProducto;
     }
+    
 
     public int getFacturaId() {
         return facturaId;
@@ -97,8 +102,26 @@ public class Factura {
         this.empleado = empleado;
     }
 
+    public int getProductoId() {
+        return productoId;
+    }
+
+    public void setProductoId(int productoId) {
+        this.productoId = productoId;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+    
+
     @Override
     public String toString() {
-        return "ID: " + facturaId + " - " + fecha + " - " + cliente + " - " + empleado;
+        return "ID: " + facturaId + " - " + fecha + " - " + hora + " - " + total;
     }
+
 }
